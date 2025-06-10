@@ -25,7 +25,6 @@ import {
   validatedAction,
   validatedActionWithUser
 } from '@/lib/auth/middleware';
-import { currentUser } from '@clerk/nextjs/server';
 
 async function logActivity(
   teamId: number | null | undefined,
@@ -50,11 +49,9 @@ const signInSchema = z.object({
   password: z.string().min(8).max(100)
 });
 
-export const signIn = await validatedAction(signInSchema, async (data, formData) => {
+export const signIn = validatedAction(signInSchema, async (data, formData) => {
   const { email, password } = data;
 
-  const use = currentUser()
-  console.log('use :>> ', use);
   const userWithTeam = await db
     .select({
       user: users,
@@ -110,9 +107,6 @@ const signUpSchema = z.object({
 });
 
 export const signUp = validatedAction(signUpSchema, async (data, formData) => {
-  console.log('signUp :>> ', signUp);
-  const use = currentUser()
-  console.log('use :>> ', use);
   const { email, password, inviteId } = data;
 
   const existingUser = await db

@@ -3,7 +3,7 @@ import { TeamDataWithMembers, User } from '@/lib/db/schema';
 // import { getTeamForUser, getUser } from '@/lib/db/queries';
 import { redirect } from 'next/navigation';
 import { currentUser } from '@clerk/nextjs/server';
-import { getTeamForUser } from '../db/queries';
+import { getTeamForUser, getUser } from '../db/queries';
 
 export type ActionState = {
   error?: string;
@@ -41,8 +41,8 @@ export function validatedActionWithUser<S extends z.ZodType<any, any>, T>(
   action: ValidatedActionWithUserFunction<S, T>
 ) {
   return async (prevState: ActionState, formData: FormData) => {
-    // const user = await getUser();
-    const user = await currentUser()
+    const user = await getUser();
+    // const user = await currentUser()
     if (!user) {
       throw new Error('User is not authenticated');
     }

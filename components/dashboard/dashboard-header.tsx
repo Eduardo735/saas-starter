@@ -1,11 +1,12 @@
 "use client"
 
-import { UserMenu } from "@/app/(dashboard)/layout"
+// import { UserMenu } from "@/app/(dashboard)/layout"
 // import { UserMenu } from "@/app/[tools]/layout"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Bell, Menu, Search } from "lucide-react"
 import { Suspense } from "react"
+import { UserMenu } from "../user-detail/user-detail"
 
 interface DashboardHeaderProps {
   collapsed: boolean
