@@ -3,6 +3,7 @@ import { db } from './drizzle';
 import { activityLogs, teamMembers, teams, users } from './schema';
 import { cookies } from 'next/headers';
 import { verifyToken } from '@/lib/auth/session';
+import { currentUser } from '@clerk/nextjs/server';
 
 export async function getUser() {
   const sessionCookie = (await cookies()).get('session');
@@ -100,13 +101,14 @@ export async function getActivityLogs() {
 }
 
 export async function getTeamForUser() {
-  const user = await getUser();
+  const user = await currentUser();
+
   if (!user) {
     return null;
   }
-
+  console.log('user... :>> ', user.id);
   const result = await db.query.teamMembers.findFirst({
-    where: eq(teamMembers.userId, user.id),
+    where: eq(teamMembers.userId, 1),
     with: {
       team: {
         with: {
@@ -124,7 +126,10 @@ export async function getTeamForUser() {
         }
       }
     }
+  }).catch((error) => {
+    console.error('Error fetching team for user:', error);
+    return null;
   });
-
+  console.log('result :>> ', result);
   return result?.team || null;
 }
