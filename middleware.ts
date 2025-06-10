@@ -8,7 +8,6 @@ const isPublicRoute = createRouteMatcher([
   "/api/*",
   '/tools/feed(.*)',
   '/pricing(.*)',
-  '/', // la homepage también si la quieres pública
 ])
 
 export default clerkMiddleware(async (auth, req) => {
