@@ -6,10 +6,9 @@ import {
   getUser,
   updateTeamSubscription
 } from '@/lib/db/queries';
-import { currentUser } from '@clerk/nextjs/server';
 
 export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2025-04-30.basil'
+  apiVersion: '2025-05-28.basil'
 });
 
 export async function createCheckoutSession({
@@ -19,31 +18,12 @@ export async function createCheckoutSession({
   team: Team | null;
   priceId: string;
 }) {
-  const user = await currentUser()
-  console.log('user-...... :>> ,team', user);
-  // const user = await getUser();
+  const user = await getUser();
 
-  // if (!team || !user) {
-  //   redirect(`/sign-up?redirect=checkout&priceId=${priceId}`);
-  // }
-  console.log('sesion :>> ', {
-    payment_method_types: ['card'],
-    line_items: [
-      {
-        price: priceId,
-        quantity: 1
-      }
-    ],
-    mode: 'subscription',
-    success_url: `${process.env.BASE_URL}/api/stripe/checkout?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${process.env.BASE_URL}/pricing`,
-    // customer: team.stripeCustomerId || undefined,
-    // client_reference_id: user.id.toString(),
-    allow_promotion_codes: true,
-    subscription_data: {
-      trial_period_days: 14
-    }
-  });
+  if (!team || !user) {
+    redirect(`/sign-up?redirect=checkout&priceId=${priceId}`);
+  }
+
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ['card'],
     line_items: [

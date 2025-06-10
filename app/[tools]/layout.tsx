@@ -3,12 +3,11 @@
 import { CircleIcon } from 'lucide-react';
 import Link from 'next/link';
 import { Suspense } from 'react';
-import { UserMenu } from '../(dashboard)/layout';
+// import { UserMenu } from '../(dashboard)/layout';
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
-
-export function Header() {
+function Header() {
   return (
     <header className="border-b border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
@@ -18,7 +17,7 @@ export function Header() {
         </Link>
         <div className="flex items-center space-x-4">
           <Suspense fallback={<div className="h-9" />}>
-            <UserMenu />
+            {/* <UserMenu /> */}
           </Suspense>
         </div>
       </div>

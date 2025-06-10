@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Input } from "@/components/ui/input"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { MainNav } from "@/components/main-nav"
+// import { MainNav } from "@/components/main-nav"
 
 export function DashboardHeader() {
   const [open, setOpen] = useState(false)
@@ -31,13 +31,13 @@ export function DashboardHeader() {
             </Button>
           </SheetTrigger>
           <SheetContent side="left" className="pr-0">
-            <MainNav className="flex flex-col items-start" />
+            {/* <MainNav className="flex flex-col items-start" /> */}
           </SheetContent>
         </Sheet>
         <Link href="/" className="mr-6 flex items-center space-x-2">
           <span className="font-bold">TradeSocial</span>
         </Link>
-        <MainNav className="hidden md:flex" />
+        {/* <MainNav className="hidden md:flex" /> */}
         <div className="ml-auto flex items-center space-x-2">
           <div className="relative hidden md:flex">
             <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />

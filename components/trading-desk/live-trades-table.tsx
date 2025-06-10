@@ -93,13 +93,13 @@ export function LiveTradesTable({ operations }: LiveTradesTableProps) {
               <TableCell>{operation.asset}</TableCell>
               <TableCell>${operation.amount.toLocaleString()}</TableCell>
               <TableCell>
-                <Badge
+                {/* <Badge
                   variant={
                     operation.status === "LIVE" ? "default" : operation.status === "COMPLETED" ? "success" : "secondary"
                   }
                 >
                   {operation.status}
-                </Badge>
+                </Badge> */}
               </TableCell>
               <TableCell className="text-right">
                 <DropdownMenu>
