@@ -1,34 +1,41 @@
-'use client';
+"use client";
 
-import { signOut } from '@/app/(login)/actions';
+import { signOut } from "@/app/(login)/actions";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuTrigger
-} from '@/components/ui/dropdown-menu';
-import { User } from '@/lib/db/schema';
-import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton } from '@clerk/nextjs';
-import { CircleIcon, Home, LogOut } from 'lucide-react';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { Suspense, useState } from 'react';
-import useSWR from 'swr';
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { User } from "@/lib/db/schema";
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  SignOutButton,
+  SignUpButton,
+  UserButton,
+} from "@clerk/nextjs";
+import { CircleIcon, Home, LogOut } from "lucide-react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { Suspense, useState } from "react";
+import useSWR from "swr";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 function UserMenu() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { data: user } = useSWR<User>('/api/user', fetcher);
+  const { data: user } = useSWR<User>("/api/user", fetcher);
 
-  console.log('user :>> ', user);
+  console.log("user :>> ", user);
 
   const router = useRouter();
 
   async function handleSignOut() {
     await signOut();
     router.refresh();
-    router.push('/');
+    router.push("/");
   }
 
   // if (user) {
@@ -98,6 +105,9 @@ function Header() {
         </Link>
         <div className="flex items-center space-x-4">
           <Suspense fallback={<div className="h-9" />}>
+            <SignOutButton>
+              <button>Cerrar sesión</button>
+            </SignOutButton>
             <UserMenu />
           </Suspense>
         </div>
@@ -107,7 +117,6 @@ function Header() {
 }
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-
   // const user = await currentUser()
 
   // if (!user) return <div>Not signed in</div>
