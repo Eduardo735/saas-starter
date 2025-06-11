@@ -1,4 +1,4 @@
-import { getTeamForUser, getUser } from '@/lib/db/queries';
+import { getTeamForUser, getUser } from '@/app/lib/db/queries';
 import {
   ClerkProvider
 } from '@clerk/nextjs';

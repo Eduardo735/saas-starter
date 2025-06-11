@@ -1,9 +1,9 @@
-import TickerBand from "@/components/ticker-band/ticker-band";
-import { QuickStats } from "@/components/trading-feed/quick-stats";
-import { TopTraders } from "@/components/trading-feed/top-traders";
-import { TradingFeed } from "@/components/trading-feed/trading-feed";
-import { TradingFeedHeader } from "@/components/trading-feed/trading-feed-header";
-import { TradingFilters } from "@/components/trading-feed/trading-filters";
+import TickerBand from "@/app/components/ticker-band/ticker-band";
+import { QuickStats } from "@/app/components/trading-feed/quick-stats";
+import { TopTraders } from "@/app/components/trading-feed/top-traders";
+import { TradingFeed } from "@/app/components/trading-feed/trading-feed";
+import { TradingFeedHeader } from "@/app/components/trading-feed/trading-feed-header";
+import { TradingFilters } from "@/app/components/trading-feed/trading-filters";
 
 export default function TradingFeedDashboard() {
     return (

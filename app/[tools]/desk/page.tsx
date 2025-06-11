@@ -1,5 +1,5 @@
-import TickerBand from "@/components/ticker-band/ticker-band";
-import Dashboard from "@/components/trading-desk/dashboard";
+import TickerBand from "@/app/components/ticker-band/ticker-band";
+import Dashboard from "@/app/components/trading-desk/dashboard";
 
 export default function Home() {
   return <div>

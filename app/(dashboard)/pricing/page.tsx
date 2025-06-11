@@ -1,7 +1,8 @@
-import { checkoutAction } from '@/lib/payments/actions';
-import { getStripePrices, getStripeProducts } from '@/lib/payments/stripe';
+import { checkoutAction } from '@/app/lib/payments/actions';
+import { getStripePrices, getStripeProducts } from '@/app/lib/payments/stripe';
 import { Check } from 'lucide-react';
 import { SubmitButton } from './submit-button';
+import PublicNavbar from '@/app/components/public-navbar/public-navbar';
 
 // Prices are fresh for one hour max
 export const revalidate = 3600;
@@ -20,7 +21,7 @@ export default async function PricingPage() {
 
   return (
     <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-
+      {/* <PublicNavbar /> */}
       <div className="grid md:grid-cols-2 gap-8 max-w-xl mx-auto">
         <PricingCard
           name={basePlan?.name || 'Base'}
@@ -28,9 +29,9 @@ export default async function PricingPage() {
           interval={basePrice?.interval || 'month'}
           trialDays={basePrice?.trialPeriodDays || 7}
           features={[
-            'Unlimited Usage',
-            'Unlimited Workspace Members',
-            'Email Support',
+            // 'Unlimited Usage',
+            // 'Unlimited Workspace Members',
+            // 'Email Support',
           ]}
           priceId={basePrice?.id}
         />
@@ -40,9 +41,9 @@ export default async function PricingPage() {
           interval={plusPrice?.interval || 'month'}
           trialDays={plusPrice?.trialPeriodDays || 7}
           features={[
-            'Everything in Base, and:',
-            'Early Access to New Features',
-            '24/7 Support + Slack Access',
+            // 'Everything in Base, and:',
+            // 'Early Access to New Features',
+            // '24/7 Support + Slack Access',
           ]}
           priceId={plusPrice?.id}
         />
