@@ -1,7 +1,7 @@
 "use client"
 
 import { ArrowDown, ArrowUp, DollarSign } from "lucide-react"
-import { useState, useEffect } from "react"
+import { useEffect, useState } from "react"
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/app/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/app/components/ui/tabs"

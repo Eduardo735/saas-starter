@@ -1,7 +1,7 @@
 "use client"
 
-import { useState, useEffect } from "react"
 import { ArrowDown, ArrowUp, MoreHorizontal, UserPlus } from "lucide-react"
+import { useEffect, useState } from "react"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/app/components/ui/avatar"
 import { Button } from "@/app/components/ui/button"

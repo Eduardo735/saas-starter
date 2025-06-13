@@ -17,16 +17,9 @@ export default function PrivateNavbar() {
                         <Link href="#features" className="text-slate-600 hover:text-slate-900">
                             Funciones
                         </Link>
-                        <Link href="#pricing" className="text-slate-600 hover:text-slate-900">
-                            Precios
-                        </Link>
-                        <Link href="#testimonials" className="text-slate-600 hover:text-slate-900">
-                            Historias de Éxito
-                        </Link>
                         <Button variant="outline" size="sm">
                             Iniciar Sesión
                         </Button>
-                        <Button size="sm">Inicia una prueba gratis</Button>
                     </div>
                 </div>
             </div>

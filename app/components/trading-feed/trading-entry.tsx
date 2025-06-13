@@ -1,12 +1,12 @@
 "use client"
 
-import { useState } from "react"
 import { Clock, Copy, Heart, MessageCircle, MoreHorizontal, TrendingDown, TrendingUp, Verified } from "lucide-react"
+import { useState } from "react"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/app/components/ui/avatar"
+import { Badge as BadgeComponent } from "@/app/components/ui/badge"
 import { Button } from "@/app/components/ui/button"
 import { Card, CardContent, CardHeader } from "@/app/components/ui/card"
-import { Badge as BadgeComponent } from "@/app/components/ui/badge"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/app/components/ui/dropdown-menu"
 import { Separator } from "@/app/components/ui/separator"
 import type { TradeEntry } from "./trading-feed"

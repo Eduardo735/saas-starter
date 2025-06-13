@@ -1,5 +1,6 @@
 import { Button } from "@/app/components/ui/button"
 import Link from "next/link"
+import { Suspense } from "react"
 import { UserDetail } from "../user-detail/user-detail"
 
 export default function PublicNavbar() {
@@ -21,17 +22,13 @@ export default function PublicNavbar() {
                         <Link href="#pricing" className="text-slate-600 hover:text-slate-900">
                             Precios
                         </Link>
-                        {/* <Link href="#testimonials" className="text-slate-600 hover:text-slate-900">
-                            Historias de Éxito
-                        </Link> */}
-                        {/* <Button variant="outline" size="sm">
-                            Iniciar Sesión
-                        </Button> */}
-                        <Link href="#">
+                        <Link href="/feed">
                             <Button size="sm" >Inicia una prueba gratis</Button>
-
                         </Link>
-                        <UserDetail />
+                        <Suspense fallback={<div className="h-9" />}>
+                            <UserDetail />
+                        </Suspense>
+
                     </div>
                 </div>
             </div>

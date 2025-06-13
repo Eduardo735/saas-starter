@@ -2,7 +2,6 @@ import { checkoutAction } from '@/app/lib/payments/actions';
 import { getStripePrices, getStripeProducts } from '@/app/lib/payments/stripe';
 import { Check } from 'lucide-react';
 import { SubmitButton } from './submit-button';
-import PublicNavbar from '@/app/components/public-navbar/public-navbar';
 
 // Prices are fresh for one hour max
 export const revalidate = 3600;

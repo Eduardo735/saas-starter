@@ -324,15 +324,15 @@
           "primaryKey": false,
           "notNull": false
         },
+        "id_webapp": {
+          "name": "id_webapp",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
         "email": {
           "name": "email",
           "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "password_hash": {
-          "name": "password_hash",
-          "type": "text",
           "primaryKey": false,
           "notNull": true
         },

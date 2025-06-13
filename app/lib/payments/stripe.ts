@@ -3,9 +3,9 @@ import { redirect } from 'next/navigation';
 import { Team } from '@/app/lib/db/schema';
 import {
   getTeamByStripeCustomerId,
-  getUser,
   updateTeamSubscription
 } from '@/app/lib/db/queries';
+import { getUser } from '@/app/lib/db/queries';
 
 export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: '2025-05-28.basil'

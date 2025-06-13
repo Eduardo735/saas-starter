@@ -2,7 +2,6 @@
 
 import { useState } from "react"
 import { MainDashboard } from "./main-dashboard"
-// import { DashboardSidebar } from "./dashboard-sidebar"
 import { TraderProfile } from "./trader-profile"
 import { MarketSelector } from "./market-selector"
 import { DashboardSidebar } from "./dashboard-sidebar"

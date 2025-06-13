@@ -1,8 +1,6 @@
 "use client"
 
 import { useEffect, useState } from "react"
-// import SlimTickerItem from "@/components/slim-ticker-item"
-// import { fetchMarketData } from "@/lib/trading-view-api"
 import SlimTickerItem from "./slim-ticket-item"
 import { fetchMarketData } from "@/app/lib/api/trading-view-api"
 
@@ -20,9 +18,7 @@ export default function SlimTickerBand() {
     useEffect(() => {
         const loadData = async () => {
             try {
-                // console.log('data :>> ');
                 const data = await fetchMarketData()
-                // console.log('data :>> ', data);
                 setTickerData([...data, ...data]) // Duplicate for seamless loop
             } catch (error) {
                 console.error("Failed to fetch market data:", error)

@@ -1,5 +1,3 @@
-// import type { Trader, Operation } from "./lib/types"
-
 import { Operation, Trader } from "./types"
 
 export const topTraders: Trader[] = [

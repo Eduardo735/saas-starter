@@ -1,10 +1,10 @@
 "use client"
 
-import { useState, useEffect } from "react"
 import { ArrowDown, ArrowUp, RefreshCw } from "lucide-react"
+import { useEffect, useState } from "react"
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/app/components/ui/card"
 import { Button } from "@/app/components/ui/button"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/app/components/ui/card"
 
 type MarketAsset = {
   symbol: string

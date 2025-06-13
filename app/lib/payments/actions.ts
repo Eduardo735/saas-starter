@@ -5,11 +5,8 @@ import { createCheckoutSession, createCustomerPortalSession } from './stripe';
 import { withTeam } from '@/app/lib/auth/middleware';
 
 export const checkoutAction = withTeam(async (formData, team) => {
-  // console.log('formData, team :>> ', formData, team);
   const priceId = formData.get('priceId') as string;
-  // console.log('priceId :>> ', priceId);
   await createCheckoutSession({ team: team, priceId });
-  // return
 });
 
 export const customerPortalAction = withTeam(async (_, team) => {

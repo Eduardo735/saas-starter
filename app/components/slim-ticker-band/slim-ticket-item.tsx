@@ -2,7 +2,6 @@
 
 import { TrendingUp, TrendingDown } from "lucide-react"
 import { TickerData } from "./slim-ticker-band"
-// import type { TickerData } from "@/components/slim-ticker-band"
 
 interface SlimTickerItemProps {
     data: TickerData

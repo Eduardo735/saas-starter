@@ -1,10 +1,10 @@
 "use client"
 
-import { Check, ChevronsUpDown } from "lucide-react"
 import { Button } from "@/app/components/ui/button"
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/app/components/ui/command"
 import { Popover, PopoverContent, PopoverTrigger } from "@/app/components/ui/popover"
 import { cn } from "@/app/lib/utils"
+import { Check, ChevronsUpDown } from "lucide-react"
 import { useState } from "react"
 
 const markets = [

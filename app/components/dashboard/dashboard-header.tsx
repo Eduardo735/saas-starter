@@ -1,7 +1,5 @@
 "use client"
 
-// import { UserMenu } from "@/app/(dashboard)/layout"
-// import { UserMenu } from "@/app/[tools]/layout"
 import { Button } from "@/app/components/ui/button"
 import { Input } from "@/app/components/ui/input"
 import { Bell, Menu, Search } from "lucide-react"
@@ -32,10 +30,9 @@ export function DashboardHeader({ collapsed, setCollapsed }: DashboardHeaderProp
         </Button>
       </div>
       <div className="flex items-center space-x-4">
-        {/* <Suspense fallback={<div className="h-9" />}> */}
-        <UserDetail />
-
-        {/* </Suspense> */}
+        <Suspense fallback={<div className="h-9" />}>
+          <UserDetail />
+        </Suspense>
       </div>
 
     </header>

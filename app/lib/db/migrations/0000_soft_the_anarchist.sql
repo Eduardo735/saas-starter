@@ -41,9 +41,10 @@ CREATE TABLE IF NOT EXISTS "teams" (
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "users" (
 	"id" serial PRIMARY KEY NOT NULL,
+	"id_webapp" varchar(255),
 	"name" varchar(100),
 	"email" varchar(255) NOT NULL,
-	"password_hash" text NOT NULL,
+	-- "password_hash" text NOT NULL,
 	"role" varchar(20) DEFAULT 'member' NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL,

@@ -1,5 +1,7 @@
 "use client"
 
+import { Button } from "@/app/components/ui/button"
+import { Separator } from "@/app/components/ui/separator"
 import { cn } from "@/app/lib/utils"
 import {
   BarChart3,
@@ -9,12 +11,9 @@ import {
   FileText,
   Home,
   LayoutDashboard,
-  Settings,
-  Users,
+  Users
 } from "lucide-react"
 import Link from "next/link"
-import { Button } from "@/app/components/ui/button"
-import { Separator } from "@/app/components/ui/separator"
 import { UserNav } from "./user-nav"
 
 interface SidebarProps {

@@ -1,15 +1,15 @@
-import { eq } from 'drizzle-orm';
-import { db } from '@/app/lib/db/drizzle';
-import { users, teams, teamMembers } from '@/app/lib/db/schema';
 import { setSession } from '@/app/lib/auth/session';
-import { NextRequest, NextResponse } from 'next/server';
+import { db } from '@/app/lib/db/drizzle';
+import { teamMembers, teams, users } from '@/app/lib/db/schema';
 import { stripe } from '@/app/lib/payments/stripe';
+import { currentUser } from '@clerk/nextjs/server';
+import { eq } from 'drizzle-orm';
+import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const sessionId = searchParams.get('session_id');
-
   if (!sessionId) {
     return NextResponse.redirect(new URL('/pricing', request.url));
   }
@@ -39,6 +39,8 @@ export async function GET(request: NextRequest) {
 
     const plan = subscription.items.data[0]?.price;
 
+    console.log('plan,subscription :>> ', plan, subscription);
+
     if (!plan) {
       throw new Error('No plan found for this subscription.');
     }
@@ -48,8 +50,9 @@ export async function GET(request: NextRequest) {
     if (!productId) {
       throw new Error('No product ID found for this subscription.');
     }
+    const userCC = await currentUser();
+    const userId = userCC?.privateMetadata.id_webapp
 
-    const userId = session.client_reference_id;
     if (!userId) {
       throw new Error("No user ID found in session's client_reference_id.");
     }
@@ -58,7 +61,10 @@ export async function GET(request: NextRequest) {
       .select()
       .from(users)
       .where(eq(users.id, Number(userId)))
-      .limit(1);
+      .limit(1).catch((error) => {
+        console.error('Database query error:', error);
+        throw new Error('Database query failed.');
+      });
 
     if (user.length === 0) {
       throw new Error('User not found in database.');

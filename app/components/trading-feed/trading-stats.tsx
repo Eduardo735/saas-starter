@@ -1,7 +1,7 @@
 "use client"
 
-import { useState, useEffect } from "react"
 import { ArrowRight, TrendingUp } from "lucide-react"
+import { useEffect, useState } from "react"
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/app/components/ui/card"
 import { Progress } from "@/app/components/ui/progress"

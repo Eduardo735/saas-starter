@@ -1,5 +1,3 @@
-// import type { TickerData } from "@/components/ticker-band"
-
 import { TickerData } from "@/app/components/ticker-band/ticker-band"
 
 // This is a mock implementation since we don't have direct access to TradingView API credentials

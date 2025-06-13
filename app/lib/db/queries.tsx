@@ -1,39 +1,35 @@
-import { desc, and, eq, isNull } from 'drizzle-orm';
+
+import { and, desc, eq, isNull } from 'drizzle-orm';
 import { db } from './drizzle';
 import { activityLogs, teamMembers, teams, users } from './schema';
-import { cookies } from 'next/headers';
-import { verifyToken } from '@/app/lib/auth/session';
-import { currentUser } from '@clerk/nextjs/server';
+
+import { auth, currentUser } from '@clerk/nextjs/server';
 
 export async function getUser() {
-  const sessionCookie = (await cookies()).get('session');
-  if (!sessionCookie || !sessionCookie.value) {
-    return null;
-  }
+  // const { redirectToSignIn } = await auth()
+  const userClerk = await currentUser()
+  // if (!userClerk)
+  // return redirectToSignIn()
 
-  const sessionData = await verifyToken(sessionCookie.value);
-  if (
-    !sessionData ||
-    !sessionData.user ||
-    typeof sessionData.user.id !== 'number'
-  ) {
-    return null;
-  }
+  // console.log('userF :>> ', userClerk);
+  const userLegacyDatabase = await getUserDb(userClerk?.privateMetadata.id_webapp as string);
+  // if (!userLegacyDatabase)
+  // return redirectToSignIn()
 
-  if (new Date(sessionData.expires) < new Date()) {
-    return null;
-  }
+  return userLegacyDatabase;
+}
+
+export async function getUserDb(userClerkId: string) {
 
   const user = await db
     .select()
     .from(users)
-    .where(and(eq(users.id, sessionData.user.id), isNull(users.deletedAt)))
+    .where(and(eq(users.id, Number(userClerkId)), isNull(users.deletedAt)))
     .limit(1);
 
   if (user.length === 0) {
     return null;
   }
-
   return user[0];
 }
 
@@ -101,14 +97,13 @@ export async function getActivityLogs() {
 }
 
 export async function getTeamForUser() {
-  const user = await currentUser();
-
+  const user = await getUser();
   if (!user) {
     return null;
   }
-  // console.log('user... :>> ', user.id);
+
   const result = await db.query.teamMembers.findFirst({
-    where: eq(teamMembers.userId, 1),
+    where: eq(teamMembers.userId, user.id),
     with: {
       team: {
         with: {
@@ -126,10 +121,7 @@ export async function getTeamForUser() {
         }
       }
     }
-  }).catch((error) => {
-    console.error('Error fetching team for user:', error);
-    return null;
   });
-  // console.log('result :>> ', result);
+
   return result?.team || null;
 }

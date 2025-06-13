@@ -1,5 +1,3 @@
-// import TickerBand from "@/components/ticker-band"
-
 import TickerBand from "./ticker-band";
 
 export default function Band() {

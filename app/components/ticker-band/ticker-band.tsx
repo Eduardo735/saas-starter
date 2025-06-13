@@ -1,8 +1,6 @@
 "use client"
 
 import { useEffect, useState } from "react"
-// import TickerItem from "@/components/ticker-item"
-// import { fetchMarketData } from "@/lib/trading-view-api"
 import { Skeleton } from "@/app/components/ui/skeleton"
 import { fetchMarketData } from "@/app/lib/trading-view.api"
 import TickerItem from "./ticker-item"

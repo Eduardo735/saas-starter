@@ -1,6 +1,6 @@
-import type React from "react"
-import Link from "next/link"
 import { BarChart3, Home, LineChart, Users } from "lucide-react"
+import Link from "next/link"
+import type React from "react"
 
 import { cn } from "@/app/lib/utils"
 

@@ -1,13 +1,13 @@
 "use client"
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/app/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/app/components/ui/tabs"
 import { Avatar, AvatarFallback, AvatarImage } from "@/app/components/ui/avatar"
 import { Badge } from "@/app/components/ui/badge"
 import { Button } from "@/app/components/ui/button"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/app/components/ui/card"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/app/components/ui/tabs"
+import { liveOperations, topTraders } from "@/app/lib/data"
 import { LiveTradesTable } from "./live-trades-table"
 import { TradingChart } from "./trading-chart"
-import { topTraders, liveOperations } from "@/app/lib/data"
 
 interface TraderProfileProps {
   traderId: string

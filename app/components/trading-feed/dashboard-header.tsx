@@ -15,7 +15,6 @@ import {
 } from "@/app/components/ui/dropdown-menu"
 import { Input } from "@/app/components/ui/input"
 import { Sheet, SheetContent, SheetTrigger } from "@/app/components/ui/sheet"
-// import { MainNav } from "@/components/main-nav"
 
 export function DashboardHeader() {
   const [open, setOpen] = useState(false)

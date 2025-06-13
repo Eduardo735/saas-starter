@@ -1,6 +1,5 @@
 "use client"
 
-// import type { TickerData } from "@/components/ticker-band"
 import { Card } from "@/app/components/ui/card"
 import { ArrowDown, ArrowUp, ExternalLink } from "lucide-react"
 import { useEffect, useRef } from "react"
