@@ -8,7 +8,6 @@ import { auth, currentUser } from "@clerk/nextjs/server";
 export async function getUser() {
   const { redirectToSignIn } = await auth()
   const userClerk = await currentUser()
-  console.log('useClerk :>> ', userClerk);
   if (!userClerk)
     return redirectToSignIn()
   const userLegacyDatabase = await getUserDb(userClerk?.privateMetadata.id_webapp as string);
@@ -37,6 +36,22 @@ export async function getTeamByStripeCustomerId(customerId: string) {
     .select()
     .from(teams)
     .where(eq(teams.stripeCustomerId, customerId))
+    .limit(1);
+
+  return result.length > 0 ? result[0] : null;
+}
+
+export async function getUserWithCustomerId(stripeCustomerId: string) {
+  const result = await db
+    .select({
+      userId: users.id,
+      webappId: users.idWebapp,
+      teamId: teamMembers.teamId
+    })
+    .from(users)
+    .leftJoin(teamMembers, eq(users.id, teamMembers.userId))
+    .leftJoin(teams, eq(teamMembers.teamId, teams.id))
+    .where(eq(teams.stripeCustomerId, stripeCustomerId))
     .limit(1);
 
   return result.length > 0 ? result[0] : null;

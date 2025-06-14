@@ -28,7 +28,8 @@ export function SidebarPro({ collapsed, setCollapsed, activeItem, setActiveItem 
     { id: "social", label: "Social", icon: LayoutDashboard },
     { id: "setups", label: "Live Setups", icon: BarChart3 },
     { id: "reports", label: "Reports", icon: BarChart3 },
-    { id: "community", label: "Community", icon: BarChart3 },
+    { id: "community", label: "Community Pro", icon: BarChart3 },
+    { id: "support", label: "Support", icon: BarChart3 },
 
   ]
 

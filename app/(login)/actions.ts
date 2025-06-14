@@ -98,7 +98,7 @@ export const signIn = validatedAction(signInSchema, async (data, formData) => {
     return createCheckoutSession({ team: foundTeam, priceId });
   }
 
-  redirect('/dashboard');
+  redirect('/feed');
 });
 
 const signUpSchema = z.object({
@@ -130,15 +130,19 @@ export const signUpAfterClerk = async (data: { id: string, email: any, email_add
     .where(eq(users.email, String(mailClerk.email_address)))
     .limit(1);
 
-  if (existingUser.length > 0) {
+  const clerkClient = createClerkClient({ secretKey: process.env.CLERK_SECRET_KEY })
+
+  if (existingUser.length > 0 && existingUser[0].idWebapp) {
+    await clerkClient.users.updateUserMetadata(existingUser[0].idWebapp, {
+      privateMetadata: {
+        id_webapp: existingUser[0].id,
+      },
+    });
     return {
       error: 'Failed to create user. Please try again.',
       email: mailClerk,
-      // password: mailM.email_address,
     };
   }
-
-  // const passwordHash = await hashPassword(passwordP);
 
   const newUser: NewUser = {
     email: String(mailClerk.email_address),
@@ -155,13 +159,13 @@ export const signUpAfterClerk = async (data: { id: string, email: any, email_add
     };
   }
 
-  const clerkClient = createClerkClient({ secretKey: process.env.CLERK_SECRET_KEY })
+  // const clerkClient = createClerkClient({ secretKey: process.env.CLERK_SECRET_KEY })
 
-  await clerkClient.users.updateUser(createdUser.idWebapp ?? '', {
-    privateMetadata: {
-      id_webapp: createdUser.id,
-    },
-  });
+  // await clerkClient.users.updateUser(createdUser.idWebapp ?? '', {
+  //   privateMetadata: {
+  //     id_webapp: createdUser.id,
+  //   },
+  // });
 
   let teamId: number;
   let userRole: string;
@@ -357,7 +361,7 @@ export const signUpStandard = validatedAction(signUpSchema, async (data, formDat
     return createCheckoutSession({ team: createdTeam, priceId });
   }
 
-  redirect('/dashboard');
+  redirect('/feed');
 });
 
 export const signUp = validatedAction(signUpSchema, async (data, formData) => {
@@ -472,7 +476,7 @@ export const signUp = validatedAction(signUpSchema, async (data, formData) => {
     return createCheckoutSession({ team: createdTeam, priceId });
   }
 
-  redirect('/dashboard');
+  redirect('/feed');
 });
 
 export async function signOut() {

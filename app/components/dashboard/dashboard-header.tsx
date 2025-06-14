@@ -3,8 +3,7 @@
 import { Button } from "@/app/components/ui/button"
 import { Input } from "@/app/components/ui/input"
 import { Bell, Menu, Search } from "lucide-react"
-import { Suspense } from "react"
-import { UserDetail } from "../user-detail/user-detail"
+import { UserAvatarInfo } from "../user-detail/user-avatar-info"
 
 interface DashboardHeaderProps {
   collapsed: boolean
@@ -29,10 +28,8 @@ export function DashboardHeader({ collapsed, setCollapsed }: DashboardHeaderProp
           <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-primary"></span>
         </Button>
       </div>
-      <div className="flex items-center space-x-4">
-        <Suspense fallback={<div className="h-9" />}>
-          <UserDetail />
-        </Suspense>
+      <div className="flex items-center w-7 h-7 bg-gray-300 rounded-full">
+        <UserAvatarInfo />
       </div>
 
     </header>

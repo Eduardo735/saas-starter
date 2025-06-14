@@ -4,8 +4,8 @@ import { Button } from "@/app/components/ui/button"
 import { Card, CardDescription, CardHeader, CardTitle } from "@/app/components/ui/card"
 import { ArrowRight, BarChart3, CheckCircle, Shield, Target, TrendingUp, Users } from "lucide-react"
 import Link from "next/link"
+import PricingDetailCard from "../components/pricing-card/pricing-detail-card"
 import ProtectedHeader from "../components/protected-header/protected-header"
-import PricingDetailCard from "./pricing/pricing-detail-card"
 
 export default function LandingPage() {
   return (
@@ -13,7 +13,6 @@ export default function LandingPage() {
 
       <ProtectedHeader />
       <TickerTapeWidget />
-
       {/* Hero Section */}
       <section className="relative pt-10 pb-20 lg:py-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -138,7 +137,7 @@ export default function LandingPage() {
                 </div>
                 <CardTitle>Señales de Seguimiento de Tendencias</CardTitle>
                 <CardDescription>
-                  Detección de rupturas potenciada por IA basada en el sistema original de 20/55 días, optimizada para mercados modernos.
+                  Detección de operaciones potenciales en los mejores mercados.
                 </CardDescription>
               </CardHeader>
             </Card>
@@ -376,11 +375,6 @@ export default function LandingPage() {
             <div>
               <h4 className="font-semibold mb-4">Recursos</h4>
               <ul className="space-y-2 text-slate-400">
-                {/* <li>
-                                    <Link href="#" className="hover:text-white">
-                                        Documentación
-                                    </Link>
-                                </li> */}
                 <li>
                   <Link href="#" className="hover:text-white">
                     Blog
@@ -414,11 +408,6 @@ export default function LandingPage() {
                 <li>
                   <Link href="#" className="hover:text-white">
                     Privacidad
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="hover:text-white">
-                    Términos
                   </Link>
                 </li>
               </ul>

@@ -1,5 +1,3 @@
-// 'use client'
-
 import { getTeamForUser, getUser } from '@/app/lib/db/queries';
 import {
   ClerkProvider

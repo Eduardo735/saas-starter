@@ -34,7 +34,7 @@ export async function createCheckoutSession({
     ],
     mode: 'subscription',
     success_url: `${process.env.BASE_URL}/api/stripe/checkout?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${process.env.BASE_URL}/pricing`,
+    cancel_url: `${process.env.BASE_URL}/#pricing`,
     customer: team.stripeCustomerId || undefined,
     client_reference_id: user.id.toString(),
     allow_promotion_codes: true,
@@ -48,7 +48,7 @@ export async function createCheckoutSession({
 
 export async function createCustomerPortalSession(team: Team) {
   if (!team.stripeCustomerId || !team.stripeProductId) {
-    redirect('/pricing');
+    redirect('/#pricing');
   }
 
   let configuration: Stripe.BillingPortal.Configuration;
@@ -120,9 +120,10 @@ export async function handleSubscriptionChange(
   const customerId = subscription.customer as string;
   const subscriptionId = subscription.id;
   const status = subscription.status;
-
+  const plan = subscription.items.data[0]?.plan;
+  console.log('plan :>> ', plan);
   const team = await getTeamByStripeCustomerId(customerId);
-
+  console.log('teams :>> ', team);
   if (!team) {
     console.error('Team not found for Stripe customer:', customerId);
     return;
@@ -130,12 +131,14 @@ export async function handleSubscriptionChange(
 
   if (status === 'active' || status === 'trialing') {
     const plan = subscription.items.data[0]?.plan;
-    await updateTeamSubscription(team.id, {
+    console.log('plan :>> ', plan);
+    const teams = await updateTeamSubscription(team.id, {
       stripeSubscriptionId: subscriptionId,
       stripeProductId: plan?.product as string,
       planName: (plan?.product as Stripe.Product).name,
       subscriptionStatus: status
     });
+    console.log('teams :>> ', teams);
   } else if (status === 'canceled' || status === 'unpaid') {
     await updateTeamSubscription(team.id, {
       stripeSubscriptionId: null,
@@ -180,3 +183,9 @@ export async function getStripeProducts() {
         : product.default_price?.id
   }));
 }
+
+export async function getProduct(productId: string) {
+  const product = await stripe.products.retrieve(productId);
+  return product;
+}
+

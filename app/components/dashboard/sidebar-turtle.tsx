@@ -23,15 +23,14 @@ interface SidebarProps {
   setActiveItem: (item: string) => void
 }
 
-export function SidebarTurtle({ collapsed, setCollapsed, activeItem, setActiveItem }: SidebarProps) {
+export function SidebarPlus({ collapsed, setCollapsed, activeItem, setActiveItem }: SidebarProps) {
   const menuItems = [
     { id: "social", label: "Social", icon: LayoutDashboard },
     { id: "setups", label: "Live Setups", icon: BarChart3 },
     { id: "reports", label: "Reports", icon: BarChart3 },
-    // { id: "academy", label: "Academy", icon: BarChart3 },
-    // { id: "mentors", label: "Mentors", icon: BarChart3 },
-    { id: "community", label: "Community", icon: BarChart3 },
+    { id: "community", label: "Community Pro", icon: BarChart3 },
     { id: "academy", label: "Academy", icon: BarChart3 },
+    { id: "support", label: "Support", icon: BarChart3 },
   ]
 
   return (

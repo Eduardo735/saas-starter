@@ -1,24 +1,22 @@
-'use client';
+// 'use client';
 
-import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton } from '@clerk/nextjs';
-// import { useRouter } from 'next/navigation';
+// import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton, useUser } from '@clerk/nextjs';
 
-export function UserDetail() {
-  // const router = useRouter();
+// export function UserDetail() {
 
-  return (
-    <>
-      <SignedOut>
-        <SignInButton mode="modal">
-          <button className="btn">Iniciar sesión</button>
-        </SignInButton>
-        <SignUpButton mode="modal">
-          <button className="btn">Registrarse</button>
-        </SignUpButton>
-      </SignedOut>
-      <SignedIn>
-        <UserButton />
-      </SignedIn>
-    </>
-  );
-}
+//   return (
+//     <>
+//       <SignedOut>
+//         <SignInButton mode="modal">
+//           <button className="btn">Iniciar sesión</button>
+//         </SignInButton>
+//         <SignUpButton mode="modal">
+//           <button className="btn">Registrarse</button>
+//         </SignUpButton>
+//       </SignedOut>
+//       <SignedIn>
+//         <UserButton />
+//       </SignedIn>
+//     </>
+//   );
+// }

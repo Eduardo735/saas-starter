@@ -1,8 +1,9 @@
 import { checkoutAction } from '@/app/lib/payments/actions';
 import { getStripePrices, getStripeProducts } from '@/app/lib/payments/stripe';
-import { Check } from 'lucide-react';
+import { ArrowRight, Check } from 'lucide-react';
+import Link from 'next/link';
+import { Button } from '../ui/button';
 import { SubmitButton } from './submit-button';
-import PublicNavbar from '@/app/components/public-navbar/public-navbar';
 
 // Prices are fresh for one hour max
 export const revalidate = 3600;
@@ -12,9 +13,35 @@ export default async function PricingDetailCard() {
         getStripePrices(),
         getStripeProducts(),
     ]);
-    const freePlan = products.find((product) => product.name === 'Free');
-    const basePlan = products.find((product) => product.name === 'Base');
-    const plusPlan = products.find((product) => product.name === 'Plus');
+
+    // // Add custom properties on the fly
+    // const customProps = {
+    //     Free: { disabled: true, customText: 'Plan actual' },
+    //     Base: { disabled: false, customText: 'Mejor opción' },
+    //     Plus: { disabled: true, customText: 'Próximamente' },
+    // };
+    // Add a custom property to each product
+    type ProductWithCustom = typeof products[number] & {
+        disabled?: boolean;
+        buttonText?: string;
+    };
+
+    const productsWithCustom: ProductWithCustom[] = products.map((product) => {
+        if (product.name === 'Free') {
+            return { ...product, disabled: false, buttonText: 'Solo inicia session' };
+        }
+        if (product.name === 'Base') {
+            return { ...product, disabled: false, buttonText: 'Comenzar ahora' };
+        }
+        if (product.name === 'Plus') {
+            return { ...product, disabled: true, buttonText: 'Próximamente' };
+        }
+        return { ...product, disabled: false, buttonText: '' };
+    });
+
+    const freePlan = productsWithCustom.find((product) => product.name === 'Free');
+    const basePlan = productsWithCustom.find((product) => product.name === 'Base');
+    const plusPlan = productsWithCustom.find((product) => product.name === 'Plus');
 
     const freePrice = prices.find((price) => price.productId === freePlan?.id);
     const basePrice = prices.find((price) => price.productId === basePlan?.id);
@@ -25,34 +52,33 @@ export default async function PricingDetailCard() {
         <div className="grid md:grid-cols-2 gap-8 max-w-xl mx-auto">
             <PricingCard
                 name={freePlan?.name || 'Free'}
-                price={freePrice?.unitAmount || 0}
+                price={0}
                 interval={freePrice?.interval || 'month'}
                 trialDays={freePrice?.trialPeriodDays || 0}
                 features={[
-                    'Social',
-                    'Oportunidades de trading setups',
-                    'Stock Market, Futuros, Spot, Options',
-                    'Comunidad'
+                    'Social Feed',
+                    'Comunidad Free'
                 ]}
                 priceId={freePrice?.id}
+                disabled={freePlan?.disabled}
+                button={freePlan?.buttonText}
             />
             <PricingCard
                 name={basePlan?.name || 'Base'}
-                price={basePrice?.unitAmount || 800}
+                price={basePrice?.unitAmount || 600}
                 interval={basePrice?.interval || 'month'}
                 trialDays={basePrice?.trialPeriodDays || 7}
                 features={[
-                    'Social',
-                    'Oportunidades de trading setups',
+                    'Social Feed',
                     'Reportes',
-                    'Notificaciones',
-                    'IA',
-                    'Oportunidades de trading setups',
-                    'Soporte',
+                    'Señales de oportunidades en el mercado',
                     'Stock Market, Futuros, Spot, Options',
-                    'Comunidad'
+                    'Soporte',
+                    'Comunidad Pro'
                 ]}
                 priceId={basePrice?.id}
+                disabled={basePlan?.disabled}
+                button={basePlan?.buttonText}
             />
             <PricingCard
                 name={plusPlan?.name || 'Plus'}
@@ -60,17 +86,17 @@ export default async function PricingDetailCard() {
                 interval={plusPrice?.interval || 'month'}
                 trialDays={plusPrice?.trialPeriodDays || 7}
                 features={[
-                    'Social',
+                    'Social Feed',
                     'Reportes',
-                    'Oportunidades de trading setups',
-                    'Notificaciones',
-                    'IA',
+                    'Señales de oportunidades en el mercado',
                     'Stock Market, Futuros, Spot, Options',
-                    'Soporte',
                     'Academia',
-                    'Comunidad',
+                    'Soporte',
+                    'Comunidad Pro',
                 ]}
                 priceId={plusPrice?.id}
+                disabled={plusPlan?.disabled}
+                button={plusPlan?.buttonText}
             />
         </div>
     );
@@ -83,6 +109,8 @@ export function PricingCard({
     trialDays,
     features,
     priceId,
+    button,
+    disabled
 }: {
     name: string;
     price: number;
@@ -90,6 +118,8 @@ export function PricingCard({
     trialDays: number;
     features: string[];
     priceId?: string;
+    button?: string;
+    disabled?: boolean;
 }) {
     return (
         <div className="pt-6 px-8 pb-3 border solid rounded-md">
@@ -113,7 +143,13 @@ export function PricingCard({
             </ul>
             <form action={checkoutAction}>
                 <input type="hidden" name="priceId" value={priceId} />
-                <SubmitButton />
+                {name === 'Free' ? <Link href='/feed'>
+                    <Button size="lg" className="bg-white text-emerald-600 hover:bg-emerald-50 border solid">
+                        Solo inicia sesión
+                        <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button></Link> : <SubmitButton buttonText={button} disabled={disabled} />}
+
+
             </form>
         </div>
     );

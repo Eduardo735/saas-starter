@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { UserDetail } from "../user-detail/user-detail"
+import { UserAvatarInfo } from "../user-detail/user-avatar-info"
 
 export default function MinimalNavbar() {
     return (
@@ -12,10 +12,11 @@ export default function MinimalNavbar() {
                         <span className="text-xl font-bold text-slate-900">TurtleTrader</span>
                     </div>
                     <div className="hidden md:flex items-center space-x-8">
-                        <Link href="/home" className="text-slate-600 hover:text-slate-900">
+                        <Link href="/feed" className="text-slate-600 hover:text-slate-900">
                             Go App
                         </Link>
-                        <UserDetail />
+                        {/* <UserDetail /> */}
+                        <UserAvatarInfo />
                         {/* <Button variant="outline" size="sm">
                             Iniciar Sesión
                         </Button> */}

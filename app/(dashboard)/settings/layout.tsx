@@ -16,16 +16,14 @@ export default function DashboardLayout({
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const navItems = [
-    { href: '/dashboard', icon: Users, label: 'Team' },
-    { href: '/dashboard/general', icon: Settings, label: 'General' },
-    { href: '/dashboard/activity', icon: Activity, label: 'Activity' },
-    // { href: '/dashboard/security', icon: Shield, label: 'Security' }
+    { href: '/settings', icon: Users, label: 'Team' },
+    { href: '/settings/general', icon: Settings, label: 'General' },
+    { href: '/settings/activity', icon: Activity, label: 'Activity' },
   ];
 
   return (
     <div className="flex flex-col min-h-[calc(100dvh-68px)] max-w-7xl mx-auto w-full">
       {/* Mobile header */}
-      <MinimalNavbar />
       <div className="lg:hidden flex items-center justify-between bg-white border-b border-gray-200 p-4">
         <div className="flex items-center">
           <span className="font-medium">Settings</span>
@@ -65,7 +63,9 @@ export default function DashboardLayout({
         </aside>
 
         {/* Main content */}
-        <main className="flex-1 overflow-y-auto p-0 lg:p-4">{children}</main>
+        <main className="flex-1 overflow-y-auto p-0">
+          <MinimalNavbar />
+          {children}</main>
       </div>
     </div>
   );

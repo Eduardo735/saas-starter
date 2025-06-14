@@ -22,7 +22,6 @@ interface SidebarProps {
 export function SidebarFree({ collapsed, setCollapsed, activeItem, setActiveItem }: SidebarProps) {
   const menuItems = [
     { id: "social", label: "Social", icon: LayoutDashboard },
-    { id: "setups", label: "Live Setups", icon: BarChart3 },
     { id: "community", label: "Free Community", icon: BarChart3 },
   ]
 

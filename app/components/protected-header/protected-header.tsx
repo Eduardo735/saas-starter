@@ -10,7 +10,9 @@ import { cn } from "@/app/lib/utils";
 import MenuSheet from "../menu-sheet/menu-sheet";
 import { Button } from "../ui/button";
 import styles from "./protected-header.module.css";
-import { UserDetail } from "../user-detail/user-detail";
+// import { UserDetail } from "../user-detail/user-detail";
+import { JoinTurtleCommunity } from "../user-detail/join-turtle-community";
+import { UserAvatarInfo } from "../user-detail/user-avatar-info";
 
 export default function ProtectedHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -39,14 +41,15 @@ export default function ProtectedHeader() {
           <Link href="#pricing" className="text-slate-600 hover:text-green-800">
             Precios
           </Link>
-          <Link href="/home">
+          <Link href="#pricing">
             <Button size="sm" >Inicia una prueba gratis</Button>
           </Link>
-          <Link href="/home" className="text-slate-600 hover:text-green-800">
+          <Link href="/feed" className="text-slate-600 hover:text-green-800">
             Ir a la aplicación
           </Link>
           <Suspense fallback={<div className="h-9" />}>
-            <UserDetail />
+            <JoinTurtleCommunity />
+            <UserAvatarInfo />
           </Suspense>
         </div>
         <button
@@ -64,7 +67,8 @@ export default function ProtectedHeader() {
         <div className="container md:hidden py-4 border-t">
           <div className="flex justify-end mr-3">
             <Suspense fallback={<div className="h-9" />}>
-              <UserDetail />
+              <JoinTurtleCommunity />
+              <UserAvatarInfo />
             </Suspense>
             {/* <MenuSheet {...configSheet}>
               <div className="flex justify-end items-center">

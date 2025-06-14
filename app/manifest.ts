@@ -2,8 +2,8 @@ import type { MetadataRoute } from 'next'
 
 export default function manifest(): MetadataRoute.Manifest {
     return {
-        name: 'Turtle Trader',
-        short_name: 'Turtle Trader',
+        name: 'Turtle Trader Pwa',
+        short_name: 'Turtle Trader Pwa',
         description: 'Improve your trading with Turtle Trader',
         start_url: '/',
         display: 'standalone',
