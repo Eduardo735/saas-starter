@@ -10,7 +10,6 @@ const clerkClient = createClerkClient({ secretKey: process.env.CLERK_SECRET_KEY 
 export async function POST(request: NextRequest) {
   const payload = await request.text();
   const signature = request.headers.get('stripe-signature') as string;
-  console.log('payload :>> ', payload);
   let event: Stripe.Event;
 
   try {

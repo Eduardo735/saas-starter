@@ -35,7 +35,6 @@ function PushNotificationManager() {
             scope: '/',
             updateViaCache: 'none',
         })
-        console.log('registration :>> ', registration);
         const sub = await registration.pushManager.getSubscription()
         setSubscription(sub)
     }
@@ -48,7 +47,6 @@ function PushNotificationManager() {
                 process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY!
             ),
         })
-        console.log('sub :>> ', sub);
         setSubscription(sub)
         const serializedSub = JSON.parse(JSON.stringify(sub))
         await subscribeUser(serializedSub)
@@ -61,11 +59,8 @@ function PushNotificationManager() {
     }
 
     async function sendTestNotification() {
-        console.log('|szcdzc :>> ', subscription);
         if (subscription) {
-            console.log('subscription :>> ', subscription);
             await sendNotification(message)
-            setMessage('dsfdsfsdfsd')
         }
     }
 

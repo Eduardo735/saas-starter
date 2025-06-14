@@ -39,8 +39,6 @@ export async function GET(request: NextRequest) {
 
     const plan = subscription.items.data[0]?.price;
 
-    console.log('plan,subscription :>> ', plan, subscription);
-
     if (!plan) {
       throw new Error('No plan found for this subscription.');
     }

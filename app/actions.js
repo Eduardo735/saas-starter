@@ -31,7 +31,6 @@ export async function sendNotification(message) {
   }
  
   try {
-    console.log('object :>> ');
     await webpush.sendNotification(
       subscription,
       JSON.stringify({
@@ -40,7 +39,6 @@ export async function sendNotification(message) {
         icon: '/icon.png',
       })
     );
-    console.log('webpush :>> ');
     return { success: true };
   } catch (error) {
     console.error('Error sending push notification:', error);

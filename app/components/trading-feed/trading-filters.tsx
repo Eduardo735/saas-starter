@@ -37,8 +37,6 @@ export function TradingFilters() {
     },
   })
 
-  // console.log('filters :>> ', filters);
-
   return (
     <Card>
       <CardContent className="p-4">

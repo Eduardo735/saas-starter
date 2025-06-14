@@ -3,7 +3,7 @@
 import { DashboardContent } from "@/app/components/dashboard/dashboard-content";
 import { DashboardHeader } from "@/app/components/dashboard/dashboard-header";
 import { SidebarFree } from "@/app/components/dashboard/sidebar-free";
-import { SidebarPlus } from "@/app/components/dashboard/sidebar-turtle";
+import { SidebarPlus } from "@/app/components/dashboard/sidebar-plus";
 import { useState } from "react";
 
 export default function Dashboard() {

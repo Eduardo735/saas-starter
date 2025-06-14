@@ -114,8 +114,6 @@ function getFirst<T>(arr: T[]): T | undefined {
 export const signUpAfterClerk = async (data: { id: string, email: any, email_addresses: any, password: any, inviteId: any, userId: any }) => {
 
   const { email_addresses: email, inviteId, id } = data;
-  console.log('data......12345 :>> ', data);
-
   const mailClerk = getFirst(email);
   if (!mailClerk || typeof mailClerk !== 'object' || !('email_address' in mailClerk)) {
     return {
@@ -171,7 +169,6 @@ export const signUpAfterClerk = async (data: { id: string, email: any, email_add
   let userRole: string;
   let createdTeam: typeof teams.$inferSelect | null = null;
   if (inviteId) {
-    console.log('createdUser..11 :>> ', createdUser);
     const [invitation] = await db
       .select()
       .from(invitations)
@@ -204,12 +201,10 @@ export const signUpAfterClerk = async (data: { id: string, email: any, email_add
       return { error: 'Invalid or expired invitation.', email };
     }
   } else {
-    console.log('createdUser.. 22:>> ', createdUser);
     // Create a new team if there's no invitation
     const newTeam: NewTeam = {
       name: `${email}'s Team`
     };
-    console.log('newTeam :>> ', newTeam);
 
     [createdTeam] = await db.insert(teams).values(newTeam).returning();
 
@@ -225,13 +220,11 @@ export const signUpAfterClerk = async (data: { id: string, email: any, email_add
 
     await logActivity(teamId, createdUser.id, ActivityType.CREATE_TEAM);
   }
-  console.log('newTeam :>> ', createdUser);
   const newTeamMember: NewTeamMember = {
     userId: createdUser.id,
     teamId: teamId,
     role: userRole
   };
-  console.log('newTeam :>> ', createdUser, newTeamMember);
   await Promise.all([
     db.insert(teamMembers).values(newTeamMember),
     logActivity(teamId, createdUser.id, ActivityType.SIGN_UP),
@@ -249,7 +242,7 @@ export const signUpAfterClerk = async (data: { id: string, email: any, email_add
 };
 
 export const signUpStandard = validatedAction(signUpSchema, async (data, formData) => {
-  console.log('data :>> ', data);
+
   const { email, inviteId } = data;
 
   const existingUser = await db
@@ -644,73 +637,6 @@ export const removeTeamMember = validatedActionWithUser(
   }
 );
 
-// const inviteTeamMemberSchema = z.object({
-//   email: z.string().email('Invalid email address'),
-//   role: z.enum(['member', 'owner'])
-// });
-
-// export const inviteTeamMember = validatedActionWithUser(
-//   inviteTeamMemberSchema,
-//   async (data, _, user) => {
-//     console.log('user .12231SS:>> ', user, data);
-//     const { email, role } = data;
-//     const userWithTeam = await getUserWithTeam(user.id);
-
-//     if (!userWithTeam?.teamId) {
-//       return { error: 'User is not part of a team' };
-//     }
-
-//     const existingMember = await db
-//       .select()
-//       .from(users)
-//       .leftJoin(teamMembers, eq(users.id, teamMembers.userId))
-//       .where(
-//         and(eq(users.email, email), eq(teamMembers.teamId, userWithTeam.teamId))
-//       )
-//       .limit(1);
-
-//     if (existingMember.length > 0) {
-//       return { error: 'User is already a member of this team' };
-//     }
-
-//     // Check if there's an existing invitation
-//     const existingInvitation = await db
-//       .select()
-//       .from(invitations)
-//       .where(
-//         and(
-//           eq(invitations.email, email),
-//           eq(invitations.teamId, userWithTeam.teamId),
-//           eq(invitations.status, 'pending')
-//         )
-//       )
-//       .limit(1);
-
-//     if (existingInvitation.length > 0) {
-//       return { error: 'An invitation has already been sent to this email' };
-//     }
-
-//     // Create a new invitation
-//     await db.insert(invitations).values({
-//       teamId: userWithTeam.teamId,
-//       email,
-//       role,
-//       invitedBy: user.id,
-//       status: 'pending'
-//     });
-
-//     await logActivity(
-//       userWithTeam.teamId,
-//       user.id,
-//       ActivityType.INVITE_TEAM_MEMBER
-//     );
-
-//     // TODO: Send invitation email and include ?inviteId={id} to sign-up URL
-//     // await sendInvitationEmail(email, userWithTeam.team.name, role)
-
-//     return { success: 'Invitation sent successfully' };
-//   }
-// );
 
 const inviteTeamMemberSchema = z.object({
   email: z.string().email('Invalid email address'),

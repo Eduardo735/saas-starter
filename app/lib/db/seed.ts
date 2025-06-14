@@ -1,6 +1,6 @@
 import { stripe } from '../payments/stripe';
 import { db } from './drizzle';
-import { users, teams, teamMembers } from './schema';
+import { teamMembers, teams, users } from './schema';
 // import { hashPassword } from '@/app/lib/auth/session';
 
 async function createStripeProducts() {

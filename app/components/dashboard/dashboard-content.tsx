@@ -6,6 +6,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/app/components/ui/avatar"
 import TradingFeed from "../feed/feed"
 import TradingLiveSetup from "../trading-setup/trading-setup"
 import TradingCommunity from "../trading-community/trading-community"
+import TradingDashboard from "../trading-position-card/trading-dashboard"
 
 interface DashboardContentProps {
   activeItem: string
@@ -17,15 +18,15 @@ export function DashboardContent({ activeItem }: DashboardContentProps) {
       case "social":
         return <TradingFeed />
       case "setups":
-        return <TradingLiveSetup />
+        return <TradingDashboard />
       case "reports":
-        return <TradingLiveSetup />
+        return <TradingCommunity />
       case "community":
         return <TradingCommunity />
       case "academy":
         return <TradingCommunity />
       default:
-        return <DashboardView />
+        return <TradingDashboard />
     }
   }
 

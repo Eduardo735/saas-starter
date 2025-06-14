@@ -121,9 +121,9 @@ export async function handleSubscriptionChange(
   const subscriptionId = subscription.id;
   const status = subscription.status;
   const plan = subscription.items.data[0]?.plan;
-  console.log('plan :>> ', plan);
+
   const team = await getTeamByStripeCustomerId(customerId);
-  console.log('teams :>> ', team);
+
   if (!team) {
     console.error('Team not found for Stripe customer:', customerId);
     return;
@@ -131,14 +131,14 @@ export async function handleSubscriptionChange(
 
   if (status === 'active' || status === 'trialing') {
     const plan = subscription.items.data[0]?.plan;
-    console.log('plan :>> ', plan);
+
     const teams = await updateTeamSubscription(team.id, {
       stripeSubscriptionId: subscriptionId,
       stripeProductId: plan?.product as string,
       planName: (plan?.product as Stripe.Product).name,
       subscriptionStatus: status
     });
-    console.log('teams :>> ', teams);
+
   } else if (status === 'canceled' || status === 'unpaid') {
     await updateTeamSubscription(team.id, {
       stripeSubscriptionId: null,

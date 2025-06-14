@@ -11,7 +11,6 @@ self.addEventListener('push', function (event) {
         primaryKey: '2',
       },
     }
-    console.log('here 1234 :>> ');
     event.waitUntil(self.registration.showNotification(data.title, options))
   }
 })
