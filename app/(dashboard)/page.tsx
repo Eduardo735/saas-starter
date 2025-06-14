@@ -1,5 +1,3 @@
-'use client'
-
 import { TickerTapeWidget } from "@/app/components/trading-chart/ticker-tape"
 import { Badge } from "@/app/components/ui/badge"
 import { Button } from "@/app/components/ui/button"
