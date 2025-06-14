@@ -1,5 +1,7 @@
 'use client';
 
+import MinimalNavbar from '@/app/components/private-navbar/minimal-navbar';
+import PrivateNavbar from '@/app/components/private-navbar/private-navbar';
 import { Button } from '@/app/components/ui/button';
 import { Activity, Menu, Settings, Shield, Users } from 'lucide-react';
 import Link from 'next/link';
@@ -18,12 +20,13 @@ export default function DashboardLayout({
     { href: '/dashboard', icon: Users, label: 'Team' },
     { href: '/dashboard/general', icon: Settings, label: 'General' },
     { href: '/dashboard/activity', icon: Activity, label: 'Activity' },
-    { href: '/dashboard/security', icon: Shield, label: 'Security' }
+    // { href: '/dashboard/security', icon: Shield, label: 'Security' }
   ];
 
   return (
     <div className="flex flex-col min-h-[calc(100dvh-68px)] max-w-7xl mx-auto w-full">
       {/* Mobile header */}
+      <MinimalNavbar />
       <div className="lg:hidden flex items-center justify-between bg-white border-b border-gray-200 p-4">
         <div className="flex items-center">
           <span className="font-medium">Settings</span>

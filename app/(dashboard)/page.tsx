@@ -1,33 +1,19 @@
-import PublicNavbar from "@/app/components/public-navbar/public-navbar"
 import { TickerTapeWidget } from "@/app/components/trading-chart/ticker-tape"
 import { Badge } from "@/app/components/ui/badge"
 import { Button } from "@/app/components/ui/button"
 import { Card, CardDescription, CardHeader, CardTitle } from "@/app/components/ui/card"
 import { ArrowRight, BarChart3, CheckCircle, Shield, Target, TrendingUp, Users } from "lucide-react"
 import Link from "next/link"
-import PricingPage from "./pricing/page"
-// const initialData = [
-//   { time: '2018-12-22', value: 32.51 },
-//   { time: '2018-12-23', value: 31.11 },
-//   { time: '2018-12-24', value: 27.02 },
-//   { time: '2018-12-25', value: 27.32 },
-//   { time: '2018-12-26', value: 25.17 },
-//   { time: '2018-12-27', value: 28.89 },
-//   { time: '2018-12-28', value: 25.46 },
-//   { time: '2018-12-29', value: 23.92 },
-//   { time: '2018-12-30', value: 22.68 },
-//   { time: '2018-12-31', value: 22.67 },
-// ];
+import ProtectedHeader from "../components/protected-header/protected-header"
+import PricingDetailCard from "./pricing/pricing-detail-card"
+
 export default function LandingPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
-      {/* Navigation */}
-      <PublicNavbar />
-      {/* <SlimTickerBand /> */}
+
+      <ProtectedHeader />
       <TickerTapeWidget />
 
-      {/* <TradingChart data={sampleData} /> */}
-      {/* <ChartComponent data={initialData}></ChartComponent> */}
       {/* Hero Section */}
       <section className="relative pt-10 pb-20 lg:py-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -317,9 +303,8 @@ export default function LandingPage() {
             <p className="text-xl text-slate-600">Comienza tu camino hacia el éxito en el trading sistemático</p>
           </div>
 
-          <div className="grid lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
-
-            <PricingPage />
+          <div className="w-full max-h-sm">
+            <PricingDetailCard />
           </div>
         </div>
       </section>
@@ -356,10 +341,8 @@ export default function LandingPage() {
           <div className="grid lg:grid-cols-4 gap-8">
             <div>
               <div className="flex items-center space-x-2 mb-4">
-                <div className="w-8 h-8 bg-emerald-600 rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-lg">🐢</span>
-                </div>
-                <span className="text-xl font-bold">TurtleTrader Pro</span>
+                <span className="text-white font-bold text-lg">🐢</span>
+                <span className="text-xl font-bold">TurtleTrader</span>
               </div>
               <p className="text-slate-400">
                 Llevando el legendario sistema de las Tortugas a los mercados modernos con IA y automatización.
@@ -442,7 +425,7 @@ export default function LandingPage() {
             </div>
           </div>
           <div className="border-t border-slate-800 mt-8 pt-8 text-center text-slate-400">
-            <p>&copy; 2024 TurtleTrader Pro. Todos los derechos reservados.</p>
+            <p>&copy; 2024 TurtleTrader. Todos los derechos reservados.</p>
           </div>
         </div>
       </footer>

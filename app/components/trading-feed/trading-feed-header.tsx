@@ -36,7 +36,7 @@ export function TradingFeedHeader() {
                 <span className="font-bold">TradeFeed</span>
               </Link>
               <div className="space-y-2">
-                <Link href="/feed" className="block px-2 py-1 text-sm">
+                <Link href="/home" className="block px-2 py-1 text-sm">
                   Feed
                 </Link>
                 <Link href="/portfolio" className="block px-2 py-1 text-sm">
@@ -59,7 +59,7 @@ export function TradingFeedHeader() {
         </Link>
 
         <nav className="hidden md:flex items-center space-x-6 text-sm font-medium">
-          <Link href="/feed" className="transition-colors hover:text-foreground/80">
+          <Link href="/home" className="transition-colors hover:text-foreground/80">
             Feed
           </Link>
           <Link href="/portfolio" className="transition-colors hover:text-foreground/80">

@@ -5,13 +5,9 @@ import { Separator } from "@/app/components/ui/separator"
 import { cn } from "@/app/lib/utils"
 import {
   BarChart3,
-  Calendar,
   ChevronLeft,
   ChevronRight,
-  FileText,
-  Home,
-  LayoutDashboard,
-  Users
+  LayoutDashboard
 } from "lucide-react"
 import Link from "next/link"
 import { UserNav } from "./user-nav"
@@ -23,26 +19,11 @@ interface SidebarProps {
   setActiveItem: (item: string) => void
 }
 
-export function Sidebar({ collapsed, setCollapsed, activeItem, setActiveItem }: SidebarProps) {
+export function SidebarFree({ collapsed, setCollapsed, activeItem, setActiveItem }: SidebarProps) {
   const menuItems = [
-    { id: "dashboard", label: "Study", icon: LayoutDashboard },
-    { id: "analytics", label: "Live Operations", icon: BarChart3 },
-    { id: "analyticds", label: "Operations", icon: BarChart3 },
-    { id: "analyticdsss", label: "Analisis Final", icon: BarChart3 },
-    { id: "patterns", label: "Patterns", icon: BarChart3 },
-    { id: "iundi", label: "Indicators", icon: BarChart3 },
-    { id: "projects", label: "Sentiment", icon: Home },
-    { id: "team", label: "Watchlist", icon: Users },
-    { id: "teamd", label: "My Watchlist", icon: Users },
-    { id: "black", label: "Black Swan", icon: Users },
-    { id: "risk", label: "Risk Management", icon: Users },
-    { id: "news", label: "News", icon: Users },
-    { id: "performance", label: "Performance", icon: Users },
-    { id: "noteds", label: "Notes", icon: Users },
-    { id: "notes", label: "How To Operate", icon: Users },
-    { id: "calendar", label: "Calendar", icon: Calendar },
-    { id: "macroeconomy", label: "Macroeconomi", icon: FileText },
-    // { id: "settings", label: "Settings", icon: Settings },
+    { id: "social", label: "Social", icon: LayoutDashboard },
+    { id: "setups", label: "Live Setups", icon: BarChart3 },
+    { id: "community", label: "Free Community", icon: BarChart3 },
   ]
 
   return (
@@ -52,8 +33,8 @@ export function Sidebar({ collapsed, setCollapsed, activeItem, setActiveItem }: 
       <div className="flex items-center justify-between h-16 px-4 border-b">
         {!collapsed && (
           <Link href="/" className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded-md bg-primary" />
-            <span className="font-semibold">ToolDash</span>
+            <span className="text-white font-bold text-lg">🐢</span>
+            <span className="font-semibold">TurtleTrader</span>
           </Link>
         )}
         <Button

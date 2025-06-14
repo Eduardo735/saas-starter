@@ -2,14 +2,14 @@
 
 import { DashboardContent } from "@/app/components/dashboard/dashboard-content";
 import { DashboardHeader } from "@/app/components/dashboard/dashboard-header";
-import { Sidebar } from "@/app/components/dashboard/sidebar";
+import { SidebarPro } from "@/app/components/dashboard/sidebar-pro";
 import { useState } from "react";
 
 export default function Dashboard() {
   const [collapsed, setCollapsed] = useState(false)
   const [activeItem, setActiveItem] = useState("dashboard")
   return <div className="flex h-screen bg-background">
-    <Sidebar
+    <SidebarPro
       collapsed={collapsed}
       setCollapsed={setCollapsed}
       activeItem={activeItem}

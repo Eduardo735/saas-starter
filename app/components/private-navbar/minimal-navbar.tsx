@@ -1,9 +1,7 @@
-import { Button } from "@/app/components/ui/button"
 import Link from "next/link"
-import { Suspense } from "react"
 import { UserDetail } from "../user-detail/user-detail"
 
-export default function PublicNavbar() {
+export default function MinimalNavbar() {
     return (
 
         <nav className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-50">
@@ -14,22 +12,13 @@ export default function PublicNavbar() {
                         <span className="text-xl font-bold text-slate-900">TurtleTrader</span>
                     </div>
                     <div className="hidden md:flex items-center space-x-8">
-                        <Link href="#features" className="text-slate-600 hover:text-slate-900">
-                            Funciones
-                        </Link>
-                        <Link href="#pricing" className="text-slate-600 hover:text-slate-900">
-                            Precios
-                        </Link>
-                        <Link href="/home">
-                            <Button size="sm" >Inicia una prueba gratis</Button>
-                        </Link>
                         <Link href="/home" className="text-slate-600 hover:text-slate-900">
-                            Ir a la aplicación
+                            Go App
                         </Link>
-                        <Suspense fallback={<div className="h-9" />}>
-                            <UserDetail />
-                        </Suspense>
-
+                        <UserDetail />
+                        {/* <Button variant="outline" size="sm">
+                            Iniciar Sesión
+                        </Button> */}
                     </div>
                 </div>
             </div>

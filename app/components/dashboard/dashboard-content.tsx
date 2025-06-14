@@ -2,6 +2,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/app
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/app/components/ui/tabs"
 import { ArrowDown, ArrowUp, BarChart3, Calendar, FileText, Home, Settings, Users } from "lucide-react"
 import { DashboardCharts } from "./dashboard-charts"
+import { Avatar, AvatarFallback, AvatarImage } from "@/app/components/ui/avatar"
+import TradingFeed from "../feed/feed"
+import TradingLiveSetup from "../trading-setup/trading-setup"
+import TradingCommunity from "../trading-community/trading-community"
 
 interface DashboardContentProps {
   activeItem: string
@@ -10,20 +14,16 @@ interface DashboardContentProps {
 export function DashboardContent({ activeItem }: DashboardContentProps) {
   const renderContent = () => {
     switch (activeItem) {
-      case "dashboard":
-        return <DashboardView />
-      case "analytics":
-        return <AnalyticsView />
-      case "projects":
-        return <ProjectsView />
-      case "team":
-        return <TeamView />
-      case "calendar":
-        return <CalendarView />
-      case "documents":
-        return <DocumentsView />
-      case "settings":
-        return <SettingsView />
+      case "social":
+        return <TradingFeed />
+      case "setups":
+        return <TradingLiveSetup />
+      case "reports":
+        return <TradingLiveSetup />
+      case "community":
+        return <TradingCommunity />
+      case "academy":
+        return <TradingCommunity />
       default:
         return <DashboardView />
     }
@@ -270,4 +270,5 @@ function SettingsView() {
   )
 }
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/app/components/ui/avatar"
+
+

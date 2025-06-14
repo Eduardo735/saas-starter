@@ -61,9 +61,8 @@ export function withTeam<T>(action: ActionWithTeamFunction<T>) {
   return async (formData: FormData): Promise<T> => {
     // const { redirectToSignIn } = await auth()
     console.log('here :>> ',);
-    // const user =
-    await getUser();
-    // console.log('heres :>> ',);
+    const user = await getUser();
+    console.log('heres :>> ', user);
     // if (!user) {
     //   return redirectToSignIn()
 

@@ -3,19 +3,18 @@ import { and, desc, eq, isNull } from 'drizzle-orm';
 import { db } from './drizzle';
 import { activityLogs, teamMembers, teams, users } from './schema';
 
-import { auth, currentUser } from '@clerk/nextjs/server';
+import { auth, currentUser } from "@clerk/nextjs/server";
 
 export async function getUser() {
-  // const { redirectToSignIn } = await auth()
+  const { redirectToSignIn } = await auth()
   const userClerk = await currentUser()
-  // if (!userClerk)
-  // return redirectToSignIn()
-
-  // console.log('userF :>> ', userClerk);
+  console.log('useClerk :>> ', userClerk);
+  if (!userClerk)
+    return redirectToSignIn()
   const userLegacyDatabase = await getUserDb(userClerk?.privateMetadata.id_webapp as string);
-  // if (!userLegacyDatabase)
-  // return redirectToSignIn()
-
+  if (!userLegacyDatabase)
+    return redirectToSignIn()
+  //Siempre puede fallar al intentar crear el usuario en base de datos legacy si pasara deberia enviarse el webhook de creado de usuario de clerk para registrar usuario y equipo
   return userLegacyDatabase;
 }
 

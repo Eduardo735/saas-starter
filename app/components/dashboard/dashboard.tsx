@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { DashboardContent } from "./dashboard-content"
 import { DashboardHeader } from "./dashboard-header"
-import { Sidebar } from "./sidebar"
+import { SidebarPro } from "./sidebar-pro"
 
 export function Dashboard() {
   const [collapsed, setCollapsed] = useState(false)
@@ -11,7 +11,7 @@ export function Dashboard() {
 
   return (
     <div className="flex h-screen bg-background">
-      <Sidebar
+      <SidebarPro
         collapsed={collapsed}
         setCollapsed={setCollapsed}
         activeItem={activeItem}

@@ -42,3 +42,5 @@ postgres_data/
 
 # clerk configuration (can include secrets)
 /.clerk/
+
+certificates
