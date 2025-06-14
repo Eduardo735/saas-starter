@@ -25,11 +25,11 @@ interface SidebarProps {
 
 export function SidebarPro({ collapsed, setCollapsed, activeItem, setActiveItem }: SidebarProps) {
   const menuItems = [
-    { id: "social", label: "Social", icon: LayoutDashboard },
+    // { id: "social", label: "Social", icon: LayoutDashboard },
     { id: "setups", label: "Live Setups", icon: BarChart3 },
-    { id: "reports", label: "Reports", icon: BarChart3 },
-    { id: "community", label: "Community Pro", icon: BarChart3 },
-    { id: "support", label: "Support", icon: BarChart3 },
+    // { id: "reports", label: "Reports", icon: BarChart3 },
+    // { id: "community", label: "Community Pro", icon: BarChart3 },
+    // { id: "support", label: "Support", icon: BarChart3 },
 
   ]
 
