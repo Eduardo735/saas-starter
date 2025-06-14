@@ -1,9 +1,8 @@
 'use client';
 
 import MinimalNavbar from '@/app/components/private-navbar/minimal-navbar';
-import PrivateNavbar from '@/app/components/private-navbar/private-navbar';
 import { Button } from '@/app/components/ui/button';
-import { Activity, Menu, Settings, Shield, Users } from 'lucide-react';
+import { Activity, Menu, Settings, Users } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
