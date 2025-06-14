@@ -1,13 +1,15 @@
-import Stripe from 'stripe';
-import { handleSubscriptionChange, stripe } from '@/lib/payments/stripe';
+import { getUserWithCustomerId } from '@/app/lib/db/queries';
+import { getProduct, handleSubscriptionChange, stripe } from '@/app/lib/payments/stripe';
+import { createClerkClient } from '@clerk/nextjs/server';
 import { NextRequest, NextResponse } from 'next/server';
+import Stripe from 'stripe';
 
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
+const clerkClient = createClerkClient({ secretKey: process.env.CLERK_SECRET_KEY })
 
 export async function POST(request: NextRequest) {
   const payload = await request.text();
   const signature = request.headers.get('stripe-signature') as string;
-
   let event: Stripe.Event;
 
   try {
@@ -20,9 +22,34 @@ export async function POST(request: NextRequest) {
     );
   }
 
+  const subscription = event.data.object as Stripe.Subscription;
+  const plan = subscription.items.data[0]?.plan;
+  let product = null;
+  if (typeof plan?.product === 'string') {
+    product = await getProduct(plan.product);
+    const customerId = subscription.customer as string;
+    const userByCustomer = await getUserWithCustomerId(customerId);
+    await clerkClient.users.updateUserMetadata(userByCustomer?.webappId ?? '', {
+      privateMetadata: {
+        plan: product.name,
+      },
+    });
+  }
   switch (event.type) {
     case 'customer.subscription.updated':
     case 'customer.subscription.deleted':
+      const subscriptionDelete = event.data.object as Stripe.Subscription;
+      const plan = subscriptionDelete.items.data[0]?.plan;
+      if (typeof plan?.product === 'string') {
+        product = await getProduct(plan.product);
+        const customerId = subscriptionDelete.customer as string;
+        const userByCustomer = await getUserWithCustomerId(customerId);
+        await clerkClient.users.updateUserMetadata(userByCustomer?.webappId ?? '', {
+          privateMetadata: {
+            plan: 'Free',
+          },
+        });
+      }
       const subscription = event.data.object as Stripe.Subscription;
       await handleSubscriptionChange(subscription);
       break;

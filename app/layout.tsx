@@ -1,4 +1,4 @@
-import { getTeamForUser, getUser } from '@/lib/db/queries';
+import { getTeamForUser, getUser } from '@/app/lib/db/queries';
 import {
   ClerkProvider
 } from '@clerk/nextjs';
@@ -6,6 +6,7 @@ import type { Metadata, Viewport } from 'next';
 import { Manrope } from 'next/font/google';
 import { SWRConfig } from 'swr';
 import './globals.css';
+
 
 export const metadata: Metadata = {
   title: 'Next.js SaaS Starter',
@@ -24,7 +25,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ClerkProvider publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}>
+    <ClerkProvider>
       <html
         lang="en"
         className={`bg-white dark:bg-gray-950 text-black dark:text-white ${manrope.className}`}

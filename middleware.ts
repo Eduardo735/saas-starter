@@ -1,71 +1,47 @@
-import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
+import { createClerkClient } from '@clerk/backend';
+import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';
+import { redirect } from 'next/navigation';
 
-// const isPublicRoute = createRouteMatcher(['/sign-in(.*)'])
+const clerkClient = createClerkClient({ secretKey: process.env.CLERK_SECRET_KEY })
 const isPublicRoute = createRouteMatcher([
-  '/sign-in(.*)',
-  '/sign-up(.*)',
-  '/tools/feed(.*)',
-  '/pricing(.*)',
-  '/', // la homepage también si la quieres pública
+  '/api(.*)',
+  '/',
 ])
 
+const routeAccess = {
+  Free: createRouteMatcher(['/home(.*)', '/settings(.*)']),
+  Pro: createRouteMatcher(['/pro-home(.*)', '/settings(.*)']),
+  Plus: createRouteMatcher(['/plus-home(.*)', '/settings(.*)']),
+};
+
 export default clerkMiddleware(async (auth, req) => {
-  if (!isPublicRoute(req)) {
-    await auth.protect()
+  const { userId, redirectToSignIn } = await auth();
+
+  if (isPublicRoute(req)) return;
+
+  if (!userId) return redirectToSignIn({ returnBackUrl: req.url });
+
+  const user = await clerkClient.users.getUser(userId)
+  const plan = user.privateMetadata?.plan || 'Free';
+  const matcher = routeAccess[plan as keyof typeof routeAccess];
+
+  if (!matcher || !matcher(req)) {
+    if (plan === 'Free') {
+      return Response.redirect(new URL('/home', req.url));
+    }
+    if (plan === 'Pro') {
+      return Response.redirect(new URL('/pro-home', req.url));
+    }
+    if (plan === 'Plus') {
+      return Response.redirect(new URL('/plus-home', req.url));
+    }
+    return Response.redirect(new URL('/home', req.url));
   }
-})
+}, { debug: true })
 
 export const config = {
   matcher: [
-    // Skip Next.js internals and all static files, unless found in search params
-    '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
-    // Always run for API routes
+    '/((?!_next|.*\\..*).*)', // O ajusta según tus rutas
     '/(api|trpc)(.*)',
   ],
 }
-// ✅ Rutas protegidas
-// const protectedRoutes = ['/dashboard', '/now',];
-
-// export async function middleware(request: NextRequest) {
-//   const { pathname } = request.nextUrl;
-//   const sessionCookie = request.cookies.get('session');
-
-//   // ✅ Verifica si la ruta es protegida
-//   const isProtectedRoute = protectedRoutes.some((route) =>
-//     pathname.startsWith(route)
-//   );
-
-//   if (isProtectedRoute && !sessionCookie) {
-//     return NextResponse.redirect(new URL('/sign-in', request.url));
-//   }
-
-//   let res = NextResponse.next();
-
-//   if (sessionCookie && request.method === 'GET') {
-//     try {
-//       const parsed = await verifyToken(sessionCookie.value);
-//       const expiresInOneDay = new Date(Date.now() + 24 * 60 * 60 * 1000);
-
-//       res.cookies.set({
-//         name: 'session',
-//         value: await signToken({
-//           ...parsed,
-//           expires: expiresInOneDay.toISOString()
-//         }),
-//         httpOnly: true,
-//         secure: true,
-//         sameSite: 'lax',
-//         expires: expiresInOneDay
-//       });
-//     } catch (error) {
-//       console.error('Error updating session:', error);
-//       res.cookies.delete('session');
-
-//       if (isProtectedRoute) {
-//         return NextResponse.redirect(new URL('/sign-in', request.url));
-//       }
-//     }
-//   }
-
-//   return res;
-// }

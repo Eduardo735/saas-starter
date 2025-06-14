@@ -1,17 +1,17 @@
+import { setSession } from '@/app/lib/auth/session';
+import { db } from '@/app/lib/db/drizzle';
+import { teamMembers, teams, users } from '@/app/lib/db/schema';
+import { stripe } from '@/app/lib/payments/stripe';
+import { currentUser } from '@clerk/nextjs/server';
 import { eq } from 'drizzle-orm';
-import { db } from '@/lib/db/drizzle';
-import { users, teams, teamMembers } from '@/lib/db/schema';
-import { setSession } from '@/lib/auth/session';
 import { NextRequest, NextResponse } from 'next/server';
-import { stripe } from '@/lib/payments/stripe';
 import Stripe from 'stripe';
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const sessionId = searchParams.get('session_id');
-
   if (!sessionId) {
-    return NextResponse.redirect(new URL('/pricing', request.url));
+    return NextResponse.redirect(new URL('/#pricing', request.url));
   }
 
   try {
@@ -48,8 +48,9 @@ export async function GET(request: NextRequest) {
     if (!productId) {
       throw new Error('No product ID found for this subscription.');
     }
+    const userCC = await currentUser();
+    const userId = userCC?.privateMetadata.id_webapp
 
-    const userId = session.client_reference_id;
     if (!userId) {
       throw new Error("No user ID found in session's client_reference_id.");
     }
@@ -58,7 +59,10 @@ export async function GET(request: NextRequest) {
       .select()
       .from(users)
       .where(eq(users.id, Number(userId)))
-      .limit(1);
+      .limit(1).catch((error) => {
+        console.error('Database query error:', error);
+        throw new Error('Database query failed.');
+      });
 
     if (user.length === 0) {
       throw new Error('User not found in database.');
@@ -89,7 +93,7 @@ export async function GET(request: NextRequest) {
       .where(eq(teams.id, userTeam[0].teamId));
 
     await setSession(user[0]);
-    return NextResponse.redirect(new URL('/dashboard', request.url));
+    return NextResponse.redirect(new URL('/feed', request.url));
   } catch (error) {
     console.error('Error handling successful checkout:', error);
     return NextResponse.redirect(new URL('/error', request.url));
