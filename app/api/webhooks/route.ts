@@ -11,6 +11,7 @@ export async function POST(req: NextRequest) {
         console.log(`Received webhook with ID ${id} and event type of ${eventType}`)
         console.log('Webhook payload:', evt.data)
         if (evt.type === 'user.created') {
+            console.log('Webhook payload:', evt.data)
             const { id, email_addresses, ...rest } = evt.data;
             const userObj = {
                 id,
@@ -20,8 +21,12 @@ export async function POST(req: NextRequest) {
                 inviteId: null,
                 userId: id,
             };
+            console.log('Webhook payload  userObj:', userObj)
             const object = signUpAfterClerk(userObj);
+
+            console.log('object :>> ', object);
         }
+        console.log('object finish :>> ');
 
         return new Response('Webhook received', { status: 200 })
     } catch (err) {
