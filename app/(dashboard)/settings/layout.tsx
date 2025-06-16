@@ -3,16 +3,9 @@
 import MinimalNavbar from '@/app/components/private-navbar/minimal-navbar';
 import { Button } from '@/app/components/ui/button';
 import { Activity, Menu, Settings, Users } from 'lucide-react';
-import { Metadata } from 'next';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
-
-export const metadata: Metadata = {
-  title: 'Setting',
-  description: 'Setting Page'
-};
-
 
 export default function DashboardLayout({
   children
