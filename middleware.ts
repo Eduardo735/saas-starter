@@ -1,6 +1,6 @@
 import { createClerkClient } from '@clerk/backend';
 import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';
-import { redirect } from 'next/navigation';
+import { NextResponse } from 'next/server';
 
 const clerkClient = createClerkClient({ secretKey: process.env.CLERK_SECRET_KEY })
 const isPublicRoute = createRouteMatcher([
@@ -27,19 +27,19 @@ export default clerkMiddleware(async (auth, req) => {
 
   if (!matcher || !matcher(req)) {
     if (plan === 'Free') {
-      // return Response.redirect(new URL('/home', req.url));
-      return redirect('/home')
+      return NextResponse.rewrite(new URL('/home', req.url))
+      // return redirect('/home')
     }
     if (plan === 'Pro') {
-      // return Response.redirect(new URL('/pro-home', req.url));
-      return redirect('/pro-home')
+      return NextResponse.rewrite(new URL('/pro-home', req.url))
+      // return redirect('/pro-home')
     }
     if (plan === 'Plus') {
-      // return Response.redirect(new URL('/plus-home', req.url));
-      return redirect('/plus-home')
+      return NextResponse.rewrite(new URL('/plus-home', req.url))
+      // return redirect('/plus-home')
     }
-    return redirect('/feed')
-    // return Response.redirect(new URL('/home', req.url));
+    // return redirect('/feed')
+    return NextResponse.rewrite(new URL('/feed', req.url))
   }
 }, { debug: true })
 
