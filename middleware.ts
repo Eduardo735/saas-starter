@@ -27,15 +27,19 @@ export default clerkMiddleware(async (auth, req) => {
 
   if (!matcher || !matcher(req)) {
     if (plan === 'Free') {
-      return Response.redirect(new URL('/home', req.url));
+      // return Response.redirect(new URL('/home', req.url));
+      return redirect('/home')
     }
     if (plan === 'Pro') {
-      return Response.redirect(new URL('/pro-home', req.url));
+      // return Response.redirect(new URL('/pro-home', req.url));
+      return redirect('/pro-home')
     }
     if (plan === 'Plus') {
-      return Response.redirect(new URL('/plus-home', req.url));
+      // return Response.redirect(new URL('/plus-home', req.url));
+      return redirect('/plus-home')
     }
-    return Response.redirect(new URL('/home', req.url));
+    return redirect('/feed')
+    // return Response.redirect(new URL('/home', req.url));
   }
 }, { debug: true })
 

@@ -4,14 +4,17 @@ import { teamMembers, teams, users } from '@/app/lib/db/schema';
 import { stripe } from '@/app/lib/payments/stripe';
 import { currentUser } from '@clerk/nextjs/server';
 import { eq } from 'drizzle-orm';
+import { redirect } from 'next/navigation';
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
+
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const sessionId = searchParams.get('session_id');
   if (!sessionId) {
-    return NextResponse.redirect(new URL('/#pricing', request.url));
+    // return NextResponse.redirect(new URL('/#pricing', request.url));
+    return redirect('#pricing')
   }
 
   try {
@@ -93,9 +96,11 @@ export async function GET(request: NextRequest) {
       .where(eq(teams.id, userTeam[0].teamId));
 
     await setSession(user[0]);
-    return NextResponse.redirect(new URL('/feed', request.url));
+    return redirect('/feed')
+    // return redirect(new URL('/feed', request.url));
   } catch (error) {
     console.error('Error handling successful checkout:', error);
-    return NextResponse.redirect(new URL('/error', request.url));
+    return redirect('/feed')
+    // return NextResponse.redirect(new URL('/error', request.url));
   }
 }
