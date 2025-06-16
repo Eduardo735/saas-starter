@@ -149,10 +149,11 @@ export const signUpAfterClerk = async (data: { id: string, email: any, email_add
   };
   console.log('newUser :>> ', newUser);
   const [createdUser] = await db.insert(users).values(newUser).returning().catch((e) => {
-    console.log('createdUser :>> ', e);
+    console.log('error when createdUser :>>', e);
     return e;
   });
-  console.log('createdUser :>> ', createdUser);
+  console.log('createdUser :>> ', createdUser.id);
+
   if (!createdUser) {
     return {
       error: 'Failed to create user. Please try again.',
@@ -160,17 +161,10 @@ export const signUpAfterClerk = async (data: { id: string, email: any, email_add
     };
   }
 
-  // const clerkClient = createClerkClient({ secretKey: process.env.CLERK_SECRET_KEY })
-
-  // await clerkClient.users.updateUser(createdUser.idWebapp ?? '', {
-  //   privateMetadata: {
-  //     id_webapp: createdUser.id,
-  //   },
-  // });
-
   let teamId: number;
   let userRole: string;
   let createdTeam: typeof teams.$inferSelect | null = null;
+
   if (inviteId) {
     const [invitation] = await db
       .select()
@@ -228,20 +222,15 @@ export const signUpAfterClerk = async (data: { id: string, email: any, email_add
     teamId: teamId,
     role: userRole
   };
+
+  const [newTeamMemberCreated] = await db.insert(teamMembers).values(newTeamMember).returning();
+
   await Promise.all([
-    db.insert(teamMembers).values(newTeamMember),
     logActivity(teamId, createdUser.id, ActivityType.SIGN_UP),
-    setSession(createdUser)
   ]);
 
-  // const redirectTo = formData.get('redirect') as string | null;
-  // if (redirectTo === 'checkout') {
-  //   const priceId = formData.get('priceId') as string;
-  //   return createCheckoutSession({ team: createdTeam, priceId });
-  // }
-
-  // redirect('/dashboard');
-  // return createdUser;
+  console.log('newTeamMember Created :>> ', newTeamMemberCreated.id);
+  return { user: { id: createdUser.id } }
 };
 
 export const signUpStandard = validatedAction(signUpSchema, async (data, formData) => {
@@ -345,11 +334,13 @@ export const signUpStandard = validatedAction(signUpSchema, async (data, formDat
     role: userRole
   };
 
+  const [newTeamMemberCreated] = await db.insert(teamMembers).values(newTeamMember).returning();
+
   await Promise.all([
-    db.insert(teamMembers).values(newTeamMember),
     logActivity(teamId, createdUser.id, ActivityType.SIGN_UP),
-    setSession(createdUser)
   ]);
+
+  console.log('newTeamMemberCreated :>> ', newTeamMemberCreated.id);
 
   const redirectTo = formData.get('redirect') as string | null;
   if (redirectTo === 'checkout') {

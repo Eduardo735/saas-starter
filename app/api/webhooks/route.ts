@@ -5,13 +5,11 @@ import { NextRequest } from 'next/server';
 export async function POST(req: NextRequest) {
     try {
         const evt = await verifyWebhook(req)
-
+        let userAfterSignUp;
         const { id } = evt.data
         const eventType = evt.type
         console.log(`Received webhook with ID ${id} and event type of ${eventType}`)
-        console.log('Webhook payload:', evt.data)
         if (evt.type === 'user.created') {
-            console.log('Webhook payload:', evt.data)
             const { id, email_addresses, ...rest } = evt.data;
             const userObj = {
                 id,
@@ -22,13 +20,15 @@ export async function POST(req: NextRequest) {
                 userId: id,
             };
             console.log('Webhook payload  userObj:', userObj)
-            const object = await signUpAfterClerk(userObj);
+            userAfterSignUp = await signUpAfterClerk(userObj);
 
-            console.log('object :>> ', object);
         }
-        console.log('object finish :>> ');
 
-        return new Response('Webhook received', { status: 200 })
+        // return new Response('Webhook received', { status: 200, data: object })
+        return new Response(
+            JSON.stringify({ message: 'Webhook received', data: userAfterSignUp }),
+            { status: 200, headers: { 'Content-Type': 'application/json' } }
+        )
     } catch (err) {
         console.error('Error verifying webhook:', err)
         return new Response('Error verifying webhook', { status: 400 })
