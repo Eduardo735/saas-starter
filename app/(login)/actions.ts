@@ -148,8 +148,11 @@ export const signUpAfterClerk = async (data: { id: string, email: any, email_add
     role: 'owner' // Default role, will be overridden if there's an invitation
   };
   console.log('newUser :>> ', newUser);
-  const [createdUser] = await db.insert(users).values(newUser).returning();
-
+  const [createdUser] = await db.insert(users).values(newUser).returning().catch((e) => {
+    console.log('createdUser :>> ', e);
+    return e;
+  });
+  console.log('createdUser :>> ', createdUser);
   if (!createdUser) {
     return {
       error: 'Failed to create user. Please try again.',
