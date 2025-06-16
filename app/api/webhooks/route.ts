@@ -22,7 +22,7 @@ export async function POST(req: NextRequest) {
                 userId: id,
             };
             console.log('Webhook payload  userObj:', userObj)
-            const object = signUpAfterClerk(userObj);
+            const object = await signUpAfterClerk(userObj);
 
             console.log('object :>> ', object);
         }

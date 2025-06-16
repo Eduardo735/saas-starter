@@ -147,7 +147,7 @@ export const signUpAfterClerk = async (data: { id: string, email: any, email_add
     idWebapp: id,
     role: 'owner' // Default role, will be overridden if there's an invitation
   };
-
+  console.log('newUser :>> ', newUser);
   const [createdUser] = await db.insert(users).values(newUser).returning();
 
   if (!createdUser) {
