@@ -9,8 +9,8 @@ import './globals.css';
 
 
 export const metadata: Metadata = {
-  title: 'Next.js SaaS Starter',
-  description: 'Get started quickly with Next.js, Postgres, and Stripe.'
+  title: 'Turtles Traders',
+  description: 'Get started quickly Turtles Traders.'
 };
 
 export const viewport: Viewport = {
