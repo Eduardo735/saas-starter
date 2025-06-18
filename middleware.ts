@@ -29,7 +29,7 @@ export default clerkMiddleware(async (auth, req) => {
     if (plan === 'Free') {
       return NextResponse.redirect(new URL("/home", req.url))
     }
-    if (plan === 'Pro') {
+    if (plan === 'Base') {
       return NextResponse.redirect(new URL("/pro-home", req.url))
     }
     if (plan === 'Plus') {
