@@ -62,14 +62,7 @@ export function UserNav({ collapsed }: UserNavProps) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56" align="end" forceMount>
-        <DropdownMenuLabel>
-          <div className="flex justify-end items-center">
-            <span className="mr-2">My Account</span>
-            {/* <UserDetail /> */}
-            <UserAvatarInfo />
-          </div>
-        </DropdownMenuLabel>
-        <DropdownMenuSeparator />
+
         <DropdownMenuGroup >
           <Link href="/settings" >
             <DropdownMenuItem className="py-4 hover:bg-gray-200 h-10 p-2 rounded-sm">
