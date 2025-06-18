@@ -18,15 +18,15 @@ export function DashboardHeader({ collapsed, setCollapsed }: DashboardHeaderProp
       </Button>
 
       <div className="relative flex-1 max-w-md">
-        <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-        <Input type="search" placeholder="Search..." className="pl-8 w-full md:w-64 lg:w-80" />
+        {/* <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" /> */}
+        {/* <Input type="search" placeholder="Search..." className="pl-8 w-full md:w-64 lg:w-80" /> */}
       </div>
 
       <div className="flex items-center gap-2 ml-auto">
-        <Button variant="ghost" size="icon" className="relative">
+        {/* <Button variant="ghost" size="icon" className="relative">
           <Bell className="h-5 w-5" />
           <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-primary"></span>
-        </Button>
+        </Button> */}
       </div>
       <div className="flex items-center w-7 h-7 bg-gray-300 rounded-full">
         <UserAvatarInfo />

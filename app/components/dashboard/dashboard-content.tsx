@@ -2,10 +2,10 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/app/components/ui/avatar"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/app/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/app/components/ui/tabs"
 import { ArrowDown, ArrowUp, BarChart3, Calendar, FileText, Home, Settings, Users } from "lucide-react"
-import { DashboardCharts } from "./dashboard-charts"
+import ComingSoon from "../coming-soon/coming-soon"
 import TradingCommunity from "../trading-community/trading-community"
-import { TradingFeed } from "../trading-feed/trading-feed"
 import TradingDashboard from "../trading-position-card/trading-dashboard"
+import { DashboardCharts } from "./dashboard-charts"
 
 interface DashboardContentProps {
   activeItem: string
@@ -15,17 +15,17 @@ export function DashboardContent({ activeItem }: DashboardContentProps) {
   const renderContent = () => {
     switch (activeItem) {
       case "social":
-        return <TradingFeed />
+        return <ComingSoon />
       case "setups":
         return <TradingDashboard />
       case "reports":
         return <TradingCommunity />
       case "community":
-        return <TradingCommunity />
+        return <ComingSoon />
       case "academy":
         return <TradingCommunity />
       default:
-        return <TradingDashboard />
+        return <ComingSoon />
     }
   }
 
