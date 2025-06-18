@@ -6,12 +6,11 @@ import { cn } from "@/app/lib/utils"
 import {
   BarChart3,
   ChevronLeft,
-  ChevronRight,
-  LayoutDashboard
+  ChevronRight
 } from "lucide-react"
 import Link from "next/link"
-import { UserNav } from "./user-nav"
 import { Badge } from "../ui/badge"
+import { UserNav } from "./user-nav"
 
 interface SidebarProps {
   collapsed: boolean

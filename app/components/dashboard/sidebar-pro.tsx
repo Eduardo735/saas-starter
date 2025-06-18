@@ -5,17 +5,12 @@ import { Separator } from "@/app/components/ui/separator"
 import { cn } from "@/app/lib/utils"
 import {
   BarChart3,
-  Calendar,
   ChevronLeft,
-  ChevronRight,
-  FileText,
-  Home,
-  LayoutDashboard,
-  Users
+  ChevronRight
 } from "lucide-react"
 import Link from "next/link"
-import { UserNav } from "./user-nav"
 import { Badge } from "../ui/badge"
+import { UserNav } from "./user-nav"
 
 interface SidebarProps {
   collapsed: boolean

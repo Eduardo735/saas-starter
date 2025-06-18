@@ -8,9 +8,7 @@ import {
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
+  DropdownMenuTrigger
 } from "@/app/components/ui/dropdown-menu"
 import { useUser } from "@clerk/nextjs"
 import { Settings } from "lucide-react"
