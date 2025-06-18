@@ -4,12 +4,14 @@ import { Button } from "@/app/components/ui/button"
 import { Separator } from "@/app/components/ui/separator"
 import { cn } from "@/app/lib/utils"
 import {
-  BarChart3,
+  ChartArea,
   ChevronLeft,
   ChevronRight,
-  LayoutDashboard
+  Newspaper,
+  Users
 } from "lucide-react"
 import Link from "next/link"
+import { Badge } from "../ui/badge"
 import { UserNav } from "./user-nav"
 
 interface SidebarProps {
@@ -21,7 +23,9 @@ interface SidebarProps {
 
 export function SidebarFree({ collapsed, setCollapsed, activeItem, setActiveItem }: SidebarProps) {
   const menuItems = [
-    { id: "setups", label: "Live Setups", icon: BarChart3 },
+    { id: "setups", label: "Live Setups", icon: ChartArea },
+    { id: "feed", label: "Feed", icon: Newspaper },
+    { id: "community", label: "Community Free", icon: Users },
   ]
 
   return (
@@ -30,9 +34,10 @@ export function SidebarFree({ collapsed, setCollapsed, activeItem, setActiveItem
     >
       <div className="flex items-center justify-between h-16 px-4 border-b">
         {!collapsed && (
-          <Link href="/" className="flex items-center gap-2">
-            <span className="text-white font-bold text-lg">🐢</span>
+          <Link href="/home" className="flex items-center justify-center gap-2">
+            <span className="text-white font-bold text-lg  pb-1">🐢</span>
             <span className="font-semibold">TurtleTrader</span>
+            <Badge>Free Plan</Badge>
           </Link>
         )}
         <Button

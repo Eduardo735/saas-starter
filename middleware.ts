@@ -10,9 +10,9 @@ const isPublicRoute = createRouteMatcher([
 ]);
 
 const routeAccess = {
-  Free: createRouteMatcher(['/home(.*)', '/settings(.*)']),
-  Base: createRouteMatcher(['/pro-home(.*)', '/settings(.*)']),
-  Plus: createRouteMatcher(['/plus-home(.*)', '/settings(.*)']),
+  Free: createRouteMatcher(['/home(.*)', '/settings']),
+  Base: createRouteMatcher(['/pro-home(.*)', '/settings']),
+  Plus: createRouteMatcher(['/plus-home(.*)', '/settings']),
 };
 
 export default clerkMiddleware(async (auth, req) => {

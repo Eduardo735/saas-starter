@@ -11,6 +11,7 @@ import {
 } from "lucide-react"
 import Link from "next/link"
 import { UserNav } from "./user-nav"
+import { Badge } from "../ui/badge"
 
 interface SidebarProps {
   collapsed: boolean
@@ -35,9 +36,10 @@ export function SidebarPlus({ collapsed, setCollapsed, activeItem, setActiveItem
     >
       <div className="flex items-center justify-between h-16 px-4 border-b">
         {!collapsed && (
-          <Link href="/" className="flex items-center gap-2">
-            <span className="text-white font-bold text-lg">🐢</span>
+          <Link href="/plus-home" className="flex items-center justify-center gap-2">
+            <span className="text-white font-bold text-lg pb-1">🐢</span>
             <span className="font-semibold">TurtleTrader</span>
+            <Badge>PLUS Plan</Badge>
           </Link>
         )}
         <Button

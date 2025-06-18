@@ -4,7 +4,7 @@ import {
   validatedAction,
   validatedActionWithUser
 } from '@/app/lib/auth/middleware';
-import { hashPassword, setSession } from '@/app/lib/auth/session';
+// import { hashPassword, setSession } from '@/app/lib/auth/session';
 import { db } from '@/app/lib/db/drizzle';
 import { getUser, getUserWithTeam } from '@/app/lib/db/queries';
 import {
@@ -25,6 +25,7 @@ import { createClerkClient } from '@clerk/backend';
 import { and, eq, sql } from 'drizzle-orm';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
+import { NextResponse } from 'next/server';
 import { z } from 'zod';
 
 const clerkClient = await createClerkClient({ secretKey: process.env.CLERK_SECRET_KEY })
@@ -90,7 +91,7 @@ export const signIn = validatedAction(signInSchema, async (data, formData) => {
   // }
 
   await Promise.all([
-    setSession(foundUser),
+    // setSession(foundUser),
     logActivity(foundTeam?.id, foundUser.id, ActivityType.SIGN_IN)
   ]);
 
@@ -105,7 +106,7 @@ export const signIn = validatedAction(signInSchema, async (data, formData) => {
 
 const signUpSchema = z.object({
   email: z.string().email(),
-  password: z.string().min(8),
+  // password: z.string().min(8),
   inviteId: z.string().optional()
 });
 
@@ -150,7 +151,9 @@ export const signUpAfterClerk = async (data: { id: string, email: any, email_add
     idWebapp: id,
     role: 'owner' // Default role, will be overridden if there's an invitation
   };
+
   console.log('newUser :>> ', newUser);
+
   const [createdUser] = await db.insert(users).values(newUser).returning().catch((e) => {
     console.log('error when createdUser :>>', e);
     return e;
@@ -171,7 +174,7 @@ export const signUpAfterClerk = async (data: { id: string, email: any, email_add
   let teamId: number;
   let userRole: string;
   let createdTeam: typeof teams.$inferSelect | null = null;
-
+  console.log('invitation Id :>> ', inviteId);
   if (inviteId) {
     const [invitation] = await db
       .select()
@@ -184,7 +187,7 @@ export const signUpAfterClerk = async (data: { id: string, email: any, email_add
         )
       )
       .limit(1);
-
+    console.log('invitation :>> ', invitation);
     if (invitation) {
       teamId = invitation.teamId;
       userRole = invitation.role;
@@ -355,11 +358,12 @@ export const signUpStandard = validatedAction(signUpSchema, async (data, formDat
     return createCheckoutSession({ team: createdTeam, priceId });
   }
 
-  redirect('/feed');
+  // redirect('/feed');
+  return NextResponse.redirect(new URL("/feed"));
 });
 
 export const signUp = validatedAction(signUpSchema, async (data, formData) => {
-  const { email, password, inviteId } = data;
+  const { email, inviteId } = data;
 
   const existingUser = await db
     .select()
@@ -371,11 +375,11 @@ export const signUp = validatedAction(signUpSchema, async (data, formData) => {
     return {
       error: 'Failed to create user. Please try again.',
       email,
-      password
+      // password
     };
   }
 
-  const passwordHash = await hashPassword(password);
+  // const passwordHash = await hashPassword(password);
 
   const newUser: NewUser = {
     email,
@@ -389,7 +393,7 @@ export const signUp = validatedAction(signUpSchema, async (data, formData) => {
     return {
       error: 'Failed to create user. Please try again.',
       email,
-      password
+      // password
     };
   }
 
@@ -428,7 +432,7 @@ export const signUp = validatedAction(signUpSchema, async (data, formData) => {
         .where(eq(teams.id, teamId))
         .limit(1);
     } else {
-      return { error: 'Invalid or expired invitation.', email, password };
+      return { error: 'Invalid or expired invitation.', email };
     }
   } else {
     // Create a new team if there's no invitation
@@ -442,7 +446,6 @@ export const signUp = validatedAction(signUpSchema, async (data, formData) => {
       return {
         error: 'Failed to create team. Please try again.',
         email,
-        password
       };
     }
 
@@ -461,7 +464,7 @@ export const signUp = validatedAction(signUpSchema, async (data, formData) => {
   await Promise.all([
     db.insert(teamMembers).values(newTeamMember),
     logActivity(teamId, createdUser.id, ActivityType.SIGN_UP),
-    setSession(createdUser)
+    // setSession(createdUser)
   ]);
 
   const redirectTo = formData.get('redirect') as string | null;

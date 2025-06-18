@@ -24,7 +24,6 @@ export async function POST(req: NextRequest) {
 
         }
 
-        // return new Response('Webhook received', { status: 200, data: object })
         return new Response(
             JSON.stringify({ message: 'Webhook received', data: userAfterSignUp }),
             { status: 200, headers: { 'Content-Type': 'application/json' } }

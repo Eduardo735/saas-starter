@@ -8,7 +8,7 @@ export default function MinimalNavbar() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-16">
                     <div className="flex items-center space-x-2">
-                        <span className="text-white font-bold text-lg">🐢</span>
+                        <span className="text-white font-bold text-lg pb-1">🐢</span>
                         <span className="text-xl font-bold text-slate-900">TurtleTrader</span>
                     </div>
                     <div className="hidden md:flex items-center space-x-8">

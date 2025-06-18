@@ -24,19 +24,20 @@ export default async function PricingDetailCard() {
     type ProductWithCustom = typeof products[number] & {
         disabled?: boolean;
         buttonText?: string;
+        target?: string;
     };
 
     const productsWithCustom: ProductWithCustom[] = products.map((product) => {
         if (product.name === 'Free') {
-            return { ...product, disabled: false, buttonText: 'Solo inicia session' };
+            return { ...product, disabled: false, buttonText: 'Solo inicia sesión', target: "Perfecto para probar la plataforma" };
         }
         if (product.name === 'Base') {
-            return { ...product, disabled: false, buttonText: 'Comenzar ahora' };
+            return { ...product, disabled: true, buttonText: 'Comenzar ahora', target: "Para traders profesionales que buscan otras perspectivas" };
         }
         if (product.name === 'Plus') {
-            return { ...product, disabled: true, buttonText: 'Próximamente' };
+            return { ...product, disabled: true, buttonText: 'Próximamente', target: "Para traders novatos que quieren mejorar sus estrategia" };
         }
-        return { ...product, disabled: false, buttonText: '' };
+        return { ...product, disabled: false, buttonText: '', target: "Para traders profesionales" };
     });
 
     const freePlan = productsWithCustom.find((product) => product.name === 'Free');
@@ -62,6 +63,7 @@ export default async function PricingDetailCard() {
                 priceId={freePrice?.id}
                 disabled={freePlan?.disabled}
                 button={freePlan?.buttonText}
+                target={freePlan?.target}
             />
             <PricingCard
                 name={basePlan?.name || 'Base'}
@@ -79,6 +81,7 @@ export default async function PricingDetailCard() {
                 priceId={basePrice?.id}
                 disabled={basePlan?.disabled}
                 button={basePlan?.buttonText}
+                target={basePlan?.target}
             />
             <PricingCard
                 name={plusPlan?.name || 'Plus'}
@@ -97,6 +100,7 @@ export default async function PricingDetailCard() {
                 priceId={plusPrice?.id}
                 disabled={plusPlan?.disabled}
                 button={plusPlan?.buttonText}
+                target={plusPlan?.target}
             />
         </div>
     );
@@ -110,7 +114,8 @@ export function PricingCard({
     features,
     priceId,
     button,
-    disabled
+    disabled,
+    target
 }: {
     name: string;
     price: number;
@@ -120,10 +125,12 @@ export function PricingCard({
     priceId?: string;
     button?: string;
     disabled?: boolean;
+    target?: string;
 }) {
     return (
         <div className="pt-6 px-8 pb-3 border solid rounded-md">
             <h2 className="text-2xl font-medium text-gray-900 mb-2">{name}</h2>
+
             <p className="text-sm text-gray-600 mb-4">
                 with {trialDays} day free trial
             </p>
@@ -133,6 +140,7 @@ export function PricingCard({
                     USD per user / {interval}
                 </span>
             </p>
+            <p className="text-sm font-medium text-gray-900 mb-5 ">{target}</p>
             <ul className="space-y-4 mb-8">
                 {features.map((feature, index) => (
                     <li key={index} className="flex items-start">

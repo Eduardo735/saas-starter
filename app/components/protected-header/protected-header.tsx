@@ -31,7 +31,7 @@ export default function ProtectedHeader() {
         )}
       >
         <div className="flex items-center space-x-2">
-          <span className="text-white font-bold text-lg">🐢</span>
+          <span className="text-white font-bold text-lg pb-1">🐢</span>
           <span className="text-xl font-bold text-slate-900">TurtleTrader</span>
         </div>
         <div className="hidden md:flex items-center space-x-8">

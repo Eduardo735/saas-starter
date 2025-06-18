@@ -1,11 +1,12 @@
 'use client';
 
-import MinimalNavbar from '@/app/components/private-navbar/minimal-navbar';
 import { Button } from '@/app/components/ui/button';
-import { Activity, Menu, Settings, Users } from 'lucide-react';
+import { JoinTurtleCommunity } from '@/app/components/user-detail/join-turtle-community';
+import { UserAvatarInfo } from '@/app/components/user-detail/user-avatar-info';
+import { Activity, ChartArea, Menu, Settings, Users } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 
 export default function DashboardLayout({
   children
@@ -28,14 +29,16 @@ export default function DashboardLayout({
         <div className="flex items-center">
           <span className="font-medium">Settings</span>
         </div>
-        <Button
-          className="-mr-3"
-          variant="ghost"
-          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-        >
-          <Menu className="h-6 w-6" />
-          <span className="sr-only">Toggle sidebar</span>
-        </Button>
+        <div className='flex gap-x-2 items-center'>
+          <Button
+            className="-mr-3"
+            variant="ghost"
+            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+          >
+            <Menu className="h-6 w-6" />
+            <span className="sr-only">Toggle sidebar</span>
+          </Button>
+        </div>
       </div>
 
       <div className="flex flex-1 overflow-hidden h-full">
@@ -45,6 +48,12 @@ export default function DashboardLayout({
             } lg:relative absolute inset-y-0 left-0 z-40 transform transition-transform duration-300 ease-in-out lg:translate-x-0 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
             }`}
         >
+          <div className='flex justify-start gap-5 mt-5'>
+            <Suspense fallback={<div className="h-9" />}>
+              <JoinTurtleCommunity />
+              <UserAvatarInfo />
+            </Suspense> </div>
+
           <nav className="h-full overflow-y-auto p-4">
             {navItems.map((item) => (
               <Link key={item.href} href={item.href} passHref>
@@ -59,12 +68,22 @@ export default function DashboardLayout({
                 </Button>
               </Link>
             ))}
+            <Link href={'/home'} passHref>
+              <Button
+                variant={'ghost'}
+                className={`shadow-none my-1 w-full justify-start }`}
+                onClick={() => setIsSidebarOpen(false)}
+              >
+                <ChartArea className="h-4 w-4" />
+                Ir a la aplicación
+              </Button>
+            </Link>
           </nav>
         </aside>
 
         {/* Main content */}
         <main className="flex-1 overflow-y-auto p-0">
-          <MinimalNavbar />
+          {/* <MinimalNavbar /> */}
           {children}</main>
       </div>
     </div>

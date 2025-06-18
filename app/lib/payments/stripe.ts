@@ -1,11 +1,12 @@
-import Stripe from 'stripe';
-import { redirect } from 'next/navigation';
-import { Team } from '@/app/lib/db/schema';
 import {
   getTeamByStripeCustomerId,
+  getUser,
   updateTeamSubscription
 } from '@/app/lib/db/queries';
-import { getUser } from '@/app/lib/db/queries';
+import { Team } from '@/app/lib/db/schema';
+import { redirect } from 'next/navigation';
+import { NextResponse } from 'next/server';
+import Stripe from 'stripe';
 
 export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: '2025-05-28.basil'
@@ -21,7 +22,8 @@ export async function createCheckoutSession({
   const user = await getUser();
 
   if (!team || !user) {
-    redirect(`/sign-up?redirect=checkout&priceId=${priceId}`);
+    return NextResponse.redirect(new URL(`/sign-up?redirect=checkout&priceId=${priceId}`));
+    // redirect(`/sign-up?redirect=checkout&priceId=${priceId}`);
   }
 
   const session = await stripe.checkout.sessions.create({
@@ -48,7 +50,8 @@ export async function createCheckoutSession({
 
 export async function createCustomerPortalSession(team: Team) {
   if (!team.stripeCustomerId || !team.stripeProductId) {
-    redirect('/#pricing');
+    return NextResponse.redirect(new URL(`/#pricing`));
+    // redirect('/#pricing');
   }
 
   let configuration: Stripe.BillingPortal.Configuration;

@@ -316,10 +316,13 @@ export default function LandingPage() {
             Comienza tu prueba gratis de 14 días y descubre por qué traders confían en nuestro sistema. No se requiere tarjeta de crédito.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-white text-emerald-600 hover:bg-emerald-50">
-              Comenzar Prueba Gratis
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
+
+            <Link href={'/#pricing'}>
+              <Button size="lg" className="bg-white text-emerald-600 hover:bg-emerald-50">
+                Comenzar Prueba Gratis
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </Link>
             {/* <Button
               size="lg"
               variant="outline"
@@ -340,11 +343,11 @@ export default function LandingPage() {
           <div className="grid lg:grid-cols-4 gap-8">
             <div>
               <div className="flex items-center space-x-2 mb-4">
-                <span className="text-white font-bold text-lg">🐢</span>
+                <span className="text-white font-bold text-lg pb-1">🐢</span>
                 <span className="text-xl font-bold">TurtleTrader</span>
               </div>
               <p className="text-slate-400">
-                Llevando el legendario sistema de las Tortugas a los mercados modernos con IA y automatización.
+                Llevando el legendario sistema de las Tortugas a los mercados modernos.
               </p>
             </div>
             <div>
@@ -356,7 +359,7 @@ export default function LandingPage() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="#" className="hover:text-white">
+                  <Link href="#pricing" className="hover:text-white">
                     Precios
                   </Link>
                 </li>
@@ -376,17 +379,17 @@ export default function LandingPage() {
               <h4 className="font-semibold mb-4">Recursos</h4>
               <ul className="space-y-2 text-slate-400">
                 <li>
-                  <Link href="#" className="hover:text-white">
+                  <Link href="/#" className="hover:text-white">
                     Blog
                   </Link>
                 </li>
                 <li>
-                  <Link href="#" className="hover:text-white">
+                  <Link href="/#" className="hover:text-white">
                     Comunidad
                   </Link>
                 </li>
                 <li>
-                  <Link href="#" className="hover:text-white">
+                  <Link href="/#" className="hover:text-white">
                     Soporte
                   </Link>
                 </li>
@@ -396,7 +399,7 @@ export default function LandingPage() {
               <h4 className="font-semibold mb-4">Compañía</h4>
               <ul className="space-y-2 text-slate-400">
                 <li>
-                  <Link href="#" className="hover:text-white">
+                  <Link href="/#" className="hover:text-white">
                     Acerca de
                   </Link>
                 </li>
@@ -406,7 +409,7 @@ export default function LandingPage() {
                                     </Link>
                                 </li> */}
                 <li>
-                  <Link href="#" className="hover:text-white">
+                  <Link href="/#" className="hover:text-white">
                     Privacidad
                   </Link>
                 </li>

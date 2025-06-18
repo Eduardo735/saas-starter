@@ -15,6 +15,7 @@ import {
 } from "lucide-react"
 import Link from "next/link"
 import { UserNav } from "./user-nav"
+import { Badge } from "../ui/badge"
 
 interface SidebarProps {
   collapsed: boolean
@@ -27,8 +28,8 @@ export function SidebarPro({ collapsed, setCollapsed, activeItem, setActiveItem 
   const menuItems = [
     // { id: "social", label: "Social", icon: LayoutDashboard },
     { id: "setups", label: "Live Setups", icon: BarChart3 },
-    // { id: "reports", label: "Reports", icon: BarChart3 },
-    // { id: "community", label: "Community Pro", icon: BarChart3 },
+    { id: "reports", label: "Reports", icon: BarChart3 },
+    { id: "community", label: "Community Pro", icon: BarChart3 },
     // { id: "support", label: "Support", icon: BarChart3 },
 
   ]
@@ -39,9 +40,10 @@ export function SidebarPro({ collapsed, setCollapsed, activeItem, setActiveItem 
     >
       <div className="flex items-center justify-between h-16 px-4 border-b">
         {!collapsed && (
-          <Link href="/" className="flex items-center gap-2">
-            <span className="text-white font-bold text-lg">🐢</span>
+          <Link href="/pro-home" className="flex items-center justify-center gap-2">
+            <span className="text-white font-bold text-lg pb-1">🐢</span>
             <span className="font-semibold">TurtleTrader</span>
+            <Badge>PRO Plan</Badge>
           </Link>
         )}
         <Button
