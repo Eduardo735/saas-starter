@@ -128,9 +128,10 @@ export const signUpAfterClerk = async (data: { id: string, email: any, email_add
     .where(eq(users.email, String(mailClerk.email_address)))
     .limit(1);
 
-  const clerkClient = createClerkClient({ secretKey: process.env.CLERK_SECRET_KEY })
+  const clerkClient = await createClerkClient({ secretKey: process.env.CLERK_SECRET_KEY })
 
   if (existingUser.length > 0 && existingUser[0].idWebapp) {
+    console.log('existingUser[0].id :>> ', existingUser[0].id);
     await clerkClient.users.updateUserMetadata(existingUser[0].idWebapp, {
       privateMetadata: {
         id_webapp: existingUser[0].id,
