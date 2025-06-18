@@ -27,6 +27,8 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { z } from 'zod';
 
+const clerkClient = await createClerkClient({ secretKey: process.env.CLERK_SECRET_KEY })
+
 async function logActivity(
   teamId: number | null | undefined,
   userId: number,
@@ -128,7 +130,7 @@ export const signUpAfterClerk = async (data: { id: string, email: any, email_add
     .where(eq(users.email, String(mailClerk.email_address)))
     .limit(1);
 
-  const clerkClient = await createClerkClient({ secretKey: process.env.CLERK_SECRET_KEY })
+
 
   if (existingUser.length > 0 && existingUser[0].idWebapp) {
     console.log('existingUser[0].id :>> ', existingUser[0].id);
