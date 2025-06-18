@@ -36,6 +36,7 @@ export async function POST(request: NextRequest) {
     });
   }
   switch (event.type) {
+    case 'customer.subscription.created':
     case 'customer.subscription.updated':
     case 'customer.subscription.deleted':
       const subscriptionDelete = event.data.object as Stripe.Subscription;
