@@ -11,7 +11,7 @@ const isPublicRoute = createRouteMatcher([
 
 const routeAccess = {
   Free: createRouteMatcher(['/home(.*)', '/settings(.*)']),
-  Pro: createRouteMatcher(['/pro-home(.*)', '/settings(.*)']),
+  Base: createRouteMatcher(['/pro-home(.*)', '/settings(.*)']),
   Plus: createRouteMatcher(['/plus-home(.*)', '/settings(.*)']),
 };
 
