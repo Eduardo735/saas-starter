@@ -24,7 +24,7 @@ export default function PublicNavbar() {
                         <Link href="#pricing">
                             <Button size="sm" >Inicia una prueba gratis</Button>
                         </Link>
-                        <Link href="/feed" className="text-slate-600 hover:text-slate-900">
+                        <Link href="/home" className="text-slate-600 hover:text-slate-900">
                             Ir a la aplicación
                         </Link>
                         <Suspense fallback={<div className="h-9" />}>

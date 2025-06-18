@@ -143,9 +143,9 @@ export function PricingCard({
             </ul>
             <form action={checkoutAction}>
                 <input type="hidden" name="priceId" value={priceId} />
-                {name === 'Free' ? <Link href='/feed'>
+                {name === 'Free' ? <Link href='/home'>
                     <Button size="lg" className="bg-white text-emerald-600 hover:bg-emerald-50 border solid">
-                        Solo inicia sesión
+                        Inicia sesión
                         <ArrowRight className="ml-2 h-4 w-4" />
                     </Button></Link> : <SubmitButton buttonText={button} disabled={disabled} />}
 

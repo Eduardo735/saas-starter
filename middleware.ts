@@ -35,7 +35,7 @@ export default clerkMiddleware(async (auth, req) => {
     if (plan === 'Plus') {
       return NextResponse.redirect(new URL("/plus-home", req.url))
     }
-    return NextResponse.redirect(new URL("/feed", req.url))
+    return NextResponse.redirect(new URL("/home", req.url))
   }
 })
 

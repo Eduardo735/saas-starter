@@ -44,7 +44,7 @@ export default function ProtectedHeader() {
           <Link href="#pricing">
             <Button size="sm" >Inicia una prueba gratis</Button>
           </Link>
-          <Link href="/feed" className="text-slate-600 hover:text-green-800">
+          <Link href="/home" className="text-slate-600 hover:text-green-800">
             Ir a la aplicación
           </Link>
           <Suspense fallback={<div className="h-9" />}>

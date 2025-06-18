@@ -1,11 +1,10 @@
+import { Avatar, AvatarFallback, AvatarImage } from "@/app/components/ui/avatar"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/app/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/app/components/ui/tabs"
 import { ArrowDown, ArrowUp, BarChart3, Calendar, FileText, Home, Settings, Users } from "lucide-react"
 import { DashboardCharts } from "./dashboard-charts"
-import { Avatar, AvatarFallback, AvatarImage } from "@/app/components/ui/avatar"
-import TradingFeed from "../feed/feed"
-import TradingLiveSetup from "../trading-setup/trading-setup"
 import TradingCommunity from "../trading-community/trading-community"
+import { TradingFeed } from "../trading-feed/trading-feed"
 import TradingDashboard from "../trading-position-card/trading-dashboard"
 
 interface DashboardContentProps {

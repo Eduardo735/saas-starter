@@ -12,7 +12,7 @@ export default function MinimalNavbar() {
                         <span className="text-xl font-bold text-slate-900">TurtleTrader</span>
                     </div>
                     <div className="hidden md:flex items-center space-x-8">
-                        <Link href="/feed" className="text-slate-600 hover:text-slate-900">
+                        <Link href="/home" className="text-slate-600 hover:text-slate-900">
                             Go App
                         </Link>
                         {/* <UserDetail /> */}

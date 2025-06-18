@@ -11,6 +11,7 @@ export async function getUser() {
   if (!userClerk)
     return redirectToSignIn()
   const userLegacyDatabase = await getUserDb(userClerk?.privateMetadata.id_webapp as string);
+
   if (!userLegacyDatabase)
     return redirectToSignIn()
   //Siempre puede fallar al intentar crear el usuario en base de datos legacy si pasara deberia enviarse el webhook de creado de usuario de clerk para registrar usuario y equipo
