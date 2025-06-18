@@ -154,7 +154,11 @@ export const signUpAfterClerk = async (data: { id: string, email: any, email_add
     return e;
   });
   console.log('createdUser :>> ', createdUser.id);
-
+  await clerkClient.users.updateUserMetadata(createdUser.idWebapp, {
+    privateMetadata: {
+      id_webapp: existingUser[0].id,
+    },
+  });
   if (!createdUser) {
     return {
       error: 'Failed to create user. Please try again.',
