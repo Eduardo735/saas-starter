@@ -156,7 +156,7 @@ export const signUpAfterClerk = async (data: { id: string, email: any, email_add
   console.log('createdUser :>> ', createdUser.id);
   await clerkClient.users.updateUserMetadata(createdUser.idWebapp, {
     privateMetadata: {
-      id_webapp: existingUser[0].id,
+      id_webapp: createdUser.id,
     },
   });
   if (!createdUser) {
