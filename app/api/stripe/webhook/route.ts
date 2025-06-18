@@ -47,7 +47,7 @@ export async function POST(request: NextRequest) {
         const userByCustomer = await getUserWithCustomerId(customerId);
         await clerkClient.users.updateUserMetadata(userByCustomer?.webappId ?? '', {
           privateMetadata: {
-            plan: 'Free',
+            plan: product.name,
           },
         });
       }
