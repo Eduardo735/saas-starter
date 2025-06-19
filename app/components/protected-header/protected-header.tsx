@@ -30,7 +30,7 @@ export default function ProtectedHeader() {
           "flex h-16 px-10 w-full items-center justify-between"
         )}
       >
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-2 mx-2 my-3">
           <span className="text-white font-bold text-lg pb-1">🐢</span>
           <span className="text-xl font-bold text-slate-900">TurtleTrader</span>
         </div>
