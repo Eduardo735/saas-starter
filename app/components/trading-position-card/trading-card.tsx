@@ -14,19 +14,18 @@ export function TradingCard({ setup }: TradingCardProps) {
     const DirectionIcon = isLong ? TrendingUp : TrendingDown
 
     return (
-        <div className="max-w-4xl mx-auto p-6 space-y-6">
+        <div className="max-w-4xl mx-auto p-6 space-y-6 border solid w-full">
             <div className="text-center space-y-2">
                 <h1 className="text-3xl font-bold">{setup.ticker} Trading Setup</h1>
                 <p className="text-muted-foreground">
                     {setup.companyName} - Análisis de entrada {setup.direction}
                 </p>
             </div>
-
             <div className="grid md:grid-cols-2 gap-6">
                 {/* Stock/CFD Card */}
-                <Card className={`border-${directionColor}-200 bg-${directionColor}-50/50`}>
+                <Card className={`border-${directionColor}-200 bg-${directionColor}-50/50 sm:border solid`}>
                     <CardHeader>
-                        <div className="flex items-center justify-between">
+                        <div className="flex items-center justify-between sm:flex flex-col gap-y-1">
                             <CardTitle className="flex items-center gap-2">
                                 <DirectionIcon className={`h-5 w-5 text-${directionColor}-600`} />
                                 {setup.direction} Normal

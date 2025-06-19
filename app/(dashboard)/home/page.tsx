@@ -7,7 +7,7 @@ import { useState } from "react";
 
 export default function Dashboard() {
   const [collapsed, setCollapsed] = useState(false)
-  const [activeItem, setActiveItem] = useState("dashboard")
+  const [activeItem, setActiveItem] = useState("setups")
   return <div className="flex h-screen bg-background">
     <SidebarFree
       collapsed={collapsed}
@@ -15,7 +15,7 @@ export default function Dashboard() {
       activeItem={activeItem}
       setActiveItem={setActiveItem}
     />
-    <div className="flex flex-col flex-1 overflow-hidden">
+    <div className="flex flex-col flex-1 overflow-hidden border solid w-full ">
       <DashboardHeader collapsed={collapsed} setCollapsed={setCollapsed} />
       <DashboardContent activeItem={activeItem} />
     </div>
